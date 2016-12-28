@@ -190,7 +190,7 @@ namespace SpellforceGameDataEditor2k16
         public static int Count;
 
         public byte[] TextID = new byte[2];
-        public byte[] LanguageID = new byte[1]; //00 DE, 01 EN, 02 FR, 03 SP, 04 IT, where poland? poland stronk :(
+        public byte[] LanguageID = new byte[1]; //00 DE, 01 EN, 02 FR, 03 SP, 04 IT, where poland? poland not stronk :(
         public byte[] DialogueNumber = new byte[1];
         public byte[] DialogueName = new byte[50];
         public byte[] RawText = new byte[512];
