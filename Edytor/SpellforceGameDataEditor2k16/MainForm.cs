@@ -13,8 +13,7 @@ using System.IO;
 namespace SpellforceGameDataEditor2k16
 {
     public partial class MainForm : Form
-    {        
-        
+    {                
         public MainForm()
         {
             InitializeComponent();
@@ -45,7 +44,10 @@ namespace SpellforceGameDataEditor2k16
             Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
 
             //nagłówek jako pierwszy Unknown
-            Utils.JumpCounter(ref Spell.Count, Spell.Length, 26);
+            Utils.AddUnknown(20);
+
+
+            Utils.JumpCounter(ref Spell.Count, Spell.Length);
             for (int i = 0; i < Spell.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Spell.Length, Spell.Length);
@@ -79,8 +81,17 @@ namespace SpellforceGameDataEditor2k16
             }
             Vars.CurrentOffset += SpellUI.Length * SpellUI.Count;
 
-            //przemyśleć.
-            Utils.JumpCounter(ref UnitStats.Count, UnitStats.Length, 30);
+            Utils.JumpCounter(ref Unknown1.Count, Unknown1.Length);
+            for (int i = 0; i < Unknown1.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Unknown1.Length, Unknown1.Length);
+                Unknown1 temp = new Unknown1();
+                temp.Unknown = spellData.SubArray(0, 12);
+                Vars.Unknown1List.Add(temp);
+            }
+            Vars.CurrentOffset += Unknown1.Length * Unknown1.Count;
+
+            Utils.JumpCounter(ref UnitStats.Count, UnitStats.Length);
             for (int i = 0; i < UnitStats.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitStats.Length, UnitStats.Length);
@@ -98,7 +109,6 @@ namespace SpellforceGameDataEditor2k16
                 temp.Gender = spellData.SubArray(43, 1);
                 temp.HeadID = spellData.SubArray(44, 2);
                 temp.SlotsID = spellData.SubArray(46, 1);
-
                 Vars.UnitStatsList.Add(temp);
             }
             Vars.CurrentOffset += UnitStats.Length * UnitStats.Count;
@@ -411,6 +421,7 @@ namespace SpellforceGameDataEditor2k16
 
         public static List<Spell> SpellList = new List<Spell>();
         public static List<SpellUI> SpellUIList = new List<SpellUI>();
+        public static List<Unknown1> Unknown1List = new List<Unknown1>();
         public static List<UnitStats> UnitStatsList = new List<UnitStats>();
         public static List<HeroWorkerAbilities> HeroWorkerAbilitiesList = new List<HeroWorkerAbilities>();
         public static List<HeroSkills> HeroSkillsList = new List<HeroSkills>();

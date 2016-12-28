@@ -36,6 +36,14 @@ namespace SpellforceGameDataEditor2k16
         public byte[] Unknown = new byte[2];
     }
 
+    public class Unknown1
+    {
+        public static int Length = 12;
+        public static int Count;
+
+        public byte[] Unknown = new byte[12];
+    }
+
     public class UnitStats
     {
         public static int Length = 47;
