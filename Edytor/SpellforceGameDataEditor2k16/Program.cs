@@ -44,7 +44,7 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += length;
         }
 
-        public static void JumpCounter(ref int classCounter, int classLength, int counterSize = 4, int bytesBeforeCounter = 6 , int bytesAfterCounter = 2)
+        public static void JumpCounter(ref int classCounter, int classLength, int bytesBeforeCounter = 6 , int bytesAfterCounter = 2, int counterSize = 4)
         {
             if (bytesBeforeCounter != 0)
                 Utils.AddUnknown(bytesBeforeCounter);

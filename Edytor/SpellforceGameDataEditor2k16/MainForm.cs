@@ -45,7 +45,7 @@ namespace SpellforceGameDataEditor2k16
             Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
 
             //nagłówek jako pierwszy Unknown
-            Utils.JumpCounter(ref Spell.Count, Spell.Length, 4, 26);
+            Utils.JumpCounter(ref Spell.Count, Spell.Length, 26);
             for (int i = 0; i < Spell.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Spell.Length, Spell.Length);
@@ -80,7 +80,7 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += SpellUI.Length * SpellUI.Count;
 
             //przemyśleć.
-            Utils.JumpCounter(ref UnitStats.Count, UnitStats.Length, 4, 30);
+            Utils.JumpCounter(ref UnitStats.Count, UnitStats.Length, 30);
             for (int i = 0; i < UnitStats.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitStats.Length, UnitStats.Length);
