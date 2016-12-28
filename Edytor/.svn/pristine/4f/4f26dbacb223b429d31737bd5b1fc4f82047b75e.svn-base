@@ -1,0 +1,129 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace SpellforceGameDataEditor2k16
+{
+
+
+    public static partial class Vars
+    {
+        public static string GameDataPath;        
+        public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
+        public static byte[] Header = new byte[27];
+
+        public static int SpellLength = 76;
+        public static int SpellCount;
+        public static List<Spell> SpellList = new List<Spell>();
+    }
+
+    public class Spell //(76b)
+    {
+        public byte[] effectID = new byte[2];
+        public byte[] typeID = new byte[2];
+        public byte[] reqs = new byte[12];
+        public byte[] mana = new byte[2];
+        public byte[] castingTime = new byte[4];
+        public byte[] recastTime = new byte[4];
+        public byte[] minRange = new byte[2];
+        public byte[] maxRange = new byte[2];
+        public byte[] castingType = new byte[2];
+        public byte[] stats = new byte[44];
+    }
+
+    public partial class MainForm : Form
+    {        
+
+        public MainForm()
+        {
+            InitializeComponent();
+        }
+
+        public void GameDataPathButton_Click(object sender, EventArgs e)
+        {            
+            DialogResult userClickedOK = GameDataOpen.ShowDialog();
+            if (userClickedOK == DialogResult.OK)
+            {
+                Vars.GameDataPath = GameDataOpen.FileName;
+                GameDataPathTextBox.Text = Vars.GameDataPath;
+                GameDataPathStatus.BackColor = System.Drawing.Color.Lime;
+                GameDataBackupButton.Enabled = true;
+                GameDataLoadButton.Enabled = true;
+            }
+        }
+
+        public void GameDataBackupButton_Click(object sender, EventArgs e)
+        {
+            File.Copy(Vars.GameDataPath, Vars.GameDataPath + ".bak", true);
+            GameDataBackupStatus.BackColor = System.Drawing.Color.Lime;
+        }
+
+        public void GameDataLoadButton_Click(object sender, EventArgs e)
+        {
+            //trzeba całkowicie przepisać wczytywanie
+            Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
+
+            for (int i = 0; i < 27; i++)
+                Vars.Header[i] = Vars.GameDataFile[i];
+            Vars.SpellCount = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(26, 4)) / Vars.SpellLength;
+
+            for (int i = 0; i < Vars.SpellCount; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(32 + i * Vars.SpellLength, Vars.SpellLength);
+                Spell spell = new Spell();
+                
+                for (int j = 0; j < Vars.SpellLength; j++)
+                {
+                    if (j < 2)
+                        spell.effectID[j] = spellData[j];
+                    else if (j >= 2 && j < 4)
+                        spell.typeID[j - 2] = spellData[j];
+                    else if (j >= 4 && j < 16)
+                        spell.reqs[j - 4] = spellData[j];
+                    else if (j >= 16 && j < 18)
+                        spell.mana[j - 16] = spellData[j];
+                    else if (j >= 18 && j < 22)
+                        spell.castingTime[j - 18] = spellData[j];
+                    else if (j >= 22 && j < 26)
+                        spell.recastTime[j - 22] = spellData[j];
+                    else if (j >= 26 && j < 28)
+                        spell.minRange[j - 26] = spellData[j];
+                    else if (j >= 28 && j < 30)
+                        spell.maxRange[j - 28] = spellData[j];
+                    else if (j >= 30 && j < 32)
+                        spell.castingType[j - 30] = spellData[j];
+                    else if (j >= 32 && j < 76)
+                        spell.stats[j - 32] = spellData[j];
+                }
+
+                Vars.SpellList.Add(spell);
+            }
+
+            GameDataLoadStatus.BackColor = Color.Lime;
+            GameDataDumpButton.Enabled = true;
+        }
+
+        public void GameDataDumpButton_Click(object sender, EventArgs e)
+        {
+            File.WriteAllBytes(Vars.GameDataPath, Vars.GameDataFile);
+            GameDataDumpStatus.BackColor = System.Drawing.Color.Lime;
+            DialogResult userClickedOK = MessageBox.Show("Thanks for using our software!", "Bye!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (userClickedOK == DialogResult.OK)
+            {
+                Environment.Exit(-1);
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
+        }
+    }
+}

@@ -1,0 +1,334 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+
+namespace SpellforceGameDataEditor2k16
+{
+    public partial class MainForm : Form
+    {        
+        
+        public MainForm()
+        {
+            InitializeComponent();
+        }             
+
+        public void GameDataPathButton_Click(object sender, EventArgs e)
+        {            
+            DialogResult userClickedOK = GameDataOpen.ShowDialog();
+            if (userClickedOK == DialogResult.OK)
+            {
+                Vars.GameDataPath = GameDataOpen.FileName;
+                GameDataPathTextBox.Text = Vars.GameDataPath;
+                GameDataPathStatus.BackColor = System.Drawing.Color.Lime;
+                GameDataBackupButton.Enabled = true;
+                GameDataLoadButton.Enabled = true;
+            }
+        }
+
+        public void GameDataBackupButton_Click(object sender, EventArgs e)
+        {
+            File.Copy(Vars.GameDataPath, Vars.GameDataPath + ".bak", true);
+            GameDataBackupStatus.BackColor = System.Drawing.Color.Lime;
+        }
+
+        public void GameDataLoadButton_Click(object sender, EventArgs e)
+        {
+            //trzeba całkowicie przepisać wczytywanie
+            Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
+
+            for (Vars.CurrentOffset = 0; Vars.CurrentOffset < 26; Vars.CurrentOffset++)
+                Vars.Header[Vars.CurrentOffset] = Vars.GameDataFile[Vars.CurrentOffset];
+
+            Spell.Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / Spell.Length;
+            Vars.CurrentOffset += 4;
+
+            Utils.AddUnknown(2);
+
+            for (int i = 0; i < Spell.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Spell.Length, Spell.Length);
+                Spell spell = new Spell();
+                spell.EffectID = spellData.SubArray(0, 2);
+                spell.TypeID = spellData.SubArray(2, 2);
+                spell.Reqs = spellData.SubArray(4, 12);
+                spell.Mana = spellData.SubArray(16, 2);
+                spell.CastingTime = spellData.SubArray(18, 4);
+                spell.RecastTime = spellData.SubArray(22, 4);
+                spell.MinRange = spellData.SubArray(26, 2);
+                spell.MaxRange = spellData.SubArray(28, 2);
+                spell.CastingType = spellData.SubArray(30, 2);
+                spell.Stats = spellData.SubArray(32, 44);
+                Vars.SpellList.Add(spell);
+            }
+            Vars.CurrentOffset += Spell.Length * Spell.Count;
+
+            Utils.AddUnknown(6);
+
+            SpellUI.Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / SpellUI.Length;
+            Vars.CurrentOffset += 4;
+
+            Utils.AddUnknown(2);
+
+            for (int i = 0; i < SpellUI.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * SpellUI.Length, SpellUI.Length);
+                SpellUI spellui = new SpellUI();
+                spellui.TypeID = spellData.SubArray(0, 2);
+                spellui.NameID = spellData.SubArray(2, 2);
+                spellui.Spellline = spellData.SubArray(4, 2);
+                spellui.Sorting = spellData.SubArray(6, 3);
+                spellui.UIName = spellData.SubArray(9, 64);
+                spellui.Unknown = spellData.SubArray(73, 2);                
+                Vars.SpellUIList.Add(spellui);
+            }
+            Vars.CurrentOffset += SpellUI.Length * SpellUI.Count;
+
+
+            //Unitstats
+            Utils.AddUnknown(30); // 30 offsetów przerwy - nieznany segment
+            UnitStats.Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / UnitStats.Length;
+            Vars.CurrentOffset += 4;
+
+            Utils.AddUnknown(2);
+
+            for (int i = 0; i < UnitStats.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitStats.Length, UnitStats.Length);
+                UnitStats unitstats = new UnitStats();
+                unitstats.StatsID = spellData.SubArray(0, 2);
+                unitstats.Level = spellData.SubArray(2, 2);
+                unitstats.RaceID = spellData.SubArray(4, 1);
+                unitstats.Attribute = spellData.SubArray(5, 14);
+                unitstats.Unknown = spellData.SubArray(19, 2);
+                unitstats.Resistance = spellData.SubArray(21, 8);
+                unitstats.Speeds = spellData.SubArray(29, 6);
+                unitstats.Size = spellData.SubArray(35, 2);
+                unitstats.Unknown2 = spellData.SubArray(37, 2);
+                unitstats.SpawningTime = spellData.SubArray(39, 4);
+                unitstats.Gender = spellData.SubArray(43, 1);
+                unitstats.HeadID = spellData.SubArray(44, 2);
+                unitstats.SlotsID = spellData.SubArray(46, 1);
+
+                Vars.UnitStatsList.Add(unitstats);
+            }
+            Vars.CurrentOffset += UnitStats.Length * UnitStats.Count;
+            // END OF UnitStats
+
+            //HeroWorkerAbilities
+            Utils.JumpCounter(ref HeroWorkerAbilities.Count, HeroWorkerAbilities.Length, 2, 4, 6);
+            for (int i = 0; i < HeroWorkerAbilities.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroWorkerAbilities.Length, HeroWorkerAbilities.Length);
+                HeroWorkerAbilities heroworkersabilities = new HeroWorkerAbilities();
+                heroworkersabilities.StatsID = spellData.SubArray(0, 2);
+                heroworkersabilities.UnitAbilities = spellData.SubArray(2, 3);
+
+                Vars.HeroWorkerAbilitiesList.Add(heroworkersabilities);
+            }
+            Vars.CurrentOffset += HeroWorkerAbilities.Length * HeroWorkerAbilities.Count;
+            //END OF HeroWorkerAbilities
+
+            //HeroSkills
+            Utils.JumpCounter(ref HeroSkills.Count, HeroSkills.Length, 2, 4, 6);
+            for (int i = 0; i < HeroSkills.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroSkills.Length, HeroSkills.Length);
+                HeroSkills heroskills = new HeroSkills();
+                heroskills.StatsID = spellData.SubArray(0, 2);
+                heroskills.SpellNumber = spellData.SubArray(2, 1);
+                heroskills.SpellEffectID = spellData.SubArray(3, 2);
+
+                Vars.HeroSkillsList.Add(heroskills);
+            }
+            Vars.CurrentOffset += HeroSkills.Length * HeroSkills.Count;
+            //END OF HeroSkills
+
+            //ItemType
+            Utils.JumpCounter(ref ItemType.Count, ItemType.Length, 3, 3, 6);
+          
+            for (int i = 0; i < ItemType.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemType.Length, ItemType.Length);
+                ItemType itemtype = new ItemType();
+                itemtype.ItemID = spellData.SubArray(0, 2);
+                itemtype.Item_Type = spellData.SubArray(2, 2);
+                itemtype.ItemNameID = spellData.SubArray(4, 2);
+                itemtype.UnitStatsID = spellData.SubArray(6, 2);
+                itemtype.ArmyUnitID = spellData.SubArray(8, 2);
+                itemtype.BuildingID = spellData.SubArray(10, 2);
+                itemtype.Unknown = spellData.SubArray(12, 1);
+                itemtype.SellingPrice = spellData.SubArray(13, 4);
+                itemtype.BuyingPrice = spellData.SubArray(17, 4);
+                itemtype.SetID = spellData.SubArray(21, 1);
+
+                Vars.ItemTypeList.Add(itemtype);
+            }
+            Vars.CurrentOffset += ItemType.Length * ItemType.Count;
+            //END OF ItemType
+
+            //ArmorItemStats
+            Utils.JumpCounter(ref ArmorItemStats.Count, ArmorItemStats.Length);
+            //od tej chwili Bartek zgodził się na temp w pętli :)
+            for (int i = 0; i < ArmorItemStats.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ArmorItemStats.Length, ArmorItemStats.Length);
+                ArmorItemStats temp = new ArmorItemStats();
+                temp.ItemID = spellData.SubArray(0, 2);
+                temp.Strength = spellData.SubArray(2, 2);
+                temp.Stamina = spellData.SubArray(4, 2);
+                temp.Agility = spellData.SubArray(6, 2);
+                temp.Dexterity = spellData.SubArray(8, 2);
+                temp.HP = spellData.SubArray(10, 2);
+                temp.Charisma = spellData.SubArray(12, 2);
+                temp.Intelligence = spellData.SubArray(14, 2);
+                temp.Wisdom = spellData.SubArray(16, 2);
+                temp.Mana = spellData.SubArray(18, 2);
+                temp.ArmorClass = spellData.SubArray(20, 2);
+                temp.FireResist = spellData.SubArray(22, 2);
+                temp.IceResist = spellData.SubArray(24, 2);
+                temp.BlackResist = spellData.SubArray(26, 2);
+                temp.MindResist = spellData.SubArray(28, 2);
+                temp.RunSpeed = spellData.SubArray(30, 2);
+                temp.FightSpeed = spellData.SubArray(32, 2);
+                temp.CastSpeed = spellData.SubArray(34, 2);
+                Vars.ArmorItemStatsList.Add(temp);
+            }
+            Vars.CurrentOffset += ArmorItemStats.Length * ArmorItemStats.Count;
+            //END OF ArmorItemStats
+
+            //ScrollRuneID
+            Utils.JumpCounter(ref ScrollRuneID.Count, ScrollRuneID.Length);
+
+            for (int i = 0; i < ScrollRuneID.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ScrollRuneID.Length, ScrollRuneID.Length);
+                ScrollRuneID temp = new ScrollRuneID();
+                temp.InInventoryID = spellData.SubArray(0, 2);
+                temp.AddedID = spellData.SubArray(2, 2);
+        
+                Vars.ScrollRuneIDList.Add(temp);
+            }
+            Vars.CurrentOffset += ScrollRuneID.Length * ScrollRuneID.Count;
+            //END OF ScrollRuneID
+
+            //WeaponItemStats
+            Utils.JumpCounter(ref WeaponItemStats.Count, WeaponItemStats.Length);
+
+            for (int i = 0; i < WeaponItemStats.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * WeaponItemStats.Length, WeaponItemStats.Length);
+                WeaponItemStats temp = new WeaponItemStats();
+                temp.ItemID = spellData.SubArray(0, 2);
+                temp.MinDamage = spellData.SubArray(2, 2);
+                temp.MaxDamage = spellData.SubArray(4, 2);
+                temp.MinRange = spellData.SubArray(6, 2);
+                temp.MaxRange = spellData.SubArray(8, 2);
+                temp.WeaponSpeed = spellData.SubArray(10, 2);
+                temp.WeaponType = spellData.SubArray(12, 2);
+                temp.WeaponMaterial = spellData.SubArray(14, 2);
+
+                Vars.WeaponItemStatsList.Add(temp);
+            }
+            Vars.CurrentOffset += WeaponItemStats.Length * WeaponItemStats.Count;
+            //END OF WeaponItemStats
+
+            //ItemRequirements
+            Utils.JumpCounter(ref ItemRequirements.Count, ItemRequirements.Length);
+
+            for (int i = 0; i < ItemRequirements.Count; i++)
+            {
+                byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemRequirements.Length, ItemRequirements.Length);
+                ItemRequirements temp = new ItemRequirements();
+                temp.ItemID = spellData.SubArray(0, 2);
+                temp.RequirementNumber = spellData.SubArray(2, 1);
+                temp.CombatMagicSchool = spellData.SubArray(3, 1);
+                temp.CombatMagicSubSchool = spellData.SubArray(4, 1);
+                temp.Level = spellData.SubArray(5, 1);
+
+                Vars.ItemRequirementsList.Add(temp);
+            }
+            Vars.CurrentOffset += ItemRequirements.Length * ItemRequirements.Count;
+            //END OF ItemRequirements
+
+
+            GameDataLoadStatus.BackColor = Color.Lime;
+            GameDataDumpButton.Enabled = true;
+        }
+
+        public void GameDataDumpButton_Click(object sender, EventArgs e)
+        {
+            File.WriteAllBytes(Vars.GameDataPath, Vars.GameDataFile);
+            GameDataDumpStatus.BackColor = System.Drawing.Color.Lime;
+            DialogResult userClickedOK = MessageBox.Show("Thanks for using our software!", "Bye!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (userClickedOK == DialogResult.OK)
+            {
+                Environment.Exit(-1);
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
+        }
+    }
+
+    public static partial class Vars
+    {
+        public static string GameDataPath;
+        public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
+        public static int CurrentOffset;
+        public static List<byte[]> Unknowns = new List<byte[]>();
+        public static byte[] Header = new byte[27];
+
+        public static List<Spell> SpellList = new List<Spell>();
+        public static List<SpellUI> SpellUIList = new List<SpellUI>();
+        public static List<UnitStats> UnitStatsList = new List<UnitStats>();
+        public static List<HeroWorkerAbilities> HeroWorkerAbilitiesList = new List<HeroWorkerAbilities>();
+        public static List<HeroSkills> HeroSkillsList = new List<HeroSkills>();
+        public static List<ItemType> ItemTypeList = new List<ItemType>();
+        public static List<ArmorItemStats> ArmorItemStatsList = new List<ArmorItemStats>();
+        public static List<ScrollRuneID> ScrollRuneIDList = new List<ScrollRuneID>();
+        public static List<WeaponItemStats> WeaponItemStatsList = new List<WeaponItemStats>();
+        public static List<ItemRequirements> ItemRequirementsList = new List<ItemRequirements>();
+        public static List<ItemSpellEffects> ItemSpellEffectsList = new List<ItemSpellEffects>();
+        public static List<ItemUI> ItemUIList = new List<ItemUI>();
+        public static List<SpellItemID> SpellItemIDList = new List<SpellItemID>();
+        public static List<Text> TextList = new List<Text>();
+        public static List<RaceStats> RaceStatsList = new List<RaceStats>();
+        public static List<HeadStats> HeadStatsList = new List<HeadStats>();
+        public static List<UnitNames> UnitNamesList = new List<UnitNames>();
+        public static List<UnitEquipment> UnitEquipmentList = new List<UnitEquipment>();
+        public static List<UnitSpellsSkills> UnitSpellsSkillsList = new List<UnitSpellsSkills>();
+        public static List<ArmyRequirements> ArmyRequirementsList = new List<ArmyRequirements>();
+        public static List<UnitLoot> UnitLootList = new List<UnitLoot>();
+        public static List<BuildingRequirements> BuildingRequirementsList = new List<BuildingRequirements>();
+        public static List<MagicIDNameID> MagicIDNameIDList = new List<MagicIDNameID>();
+        public static List<SkillRequirements> SkillRequirementsList = new List<SkillRequirements>();
+        public static List<MerchantIDUnitID> MerchantIDUnitIDList = new List<MerchantIDUnitID>();
+        public static List<MerchantInventory> MerchantInventoryList = new List<MerchantInventory>();
+        public static List<MerchantRates> MerchantRatesList = new List<MerchantRates>();
+        public static List<sql_goodNames> sql_goodNamesList = new List<sql_goodNames>();
+        public static List<PlayerLevelStats> PlayerLevelStatsList = new List<PlayerLevelStats>();
+        public static List<ObjectStatsNames> ObjectStatsNamesList = new List<ObjectStatsNames>();
+        public static List<MonumentInteractiveObjectStats> MonumentInteractiveObjectStatsList = new List<MonumentInteractiveObjectStats>();
+        public static List<ChestLoot> ChestLootList = new List<ChestLoot>();
+        public static List<QuestMaps> QuestMapsList = new List<QuestMaps>();
+        public static List<Portals> PortalsList = new List<Portals>();
+        public static List<QuestGameMenu> QuestGameMenuList = new List<QuestGameMenu>();
+        public static List<ButtonDescription> ButtonDescriptionList = new List<ButtonDescription>();
+        public static List<QuestID> QuestIDList = new List<QuestID>();
+        public static List<WeaponTypeStats> WeaponTypeStatsList = new List<WeaponTypeStats>();
+        public static List<WeaponMaterial> WeaponMaterialList = new List<WeaponMaterial>();
+        public static List<Heads> HeadsList = new List<Heads>();
+        public static List<UpgradeStatsUI> UpgradeStatsUIList = new List<UpgradeStatsUI>();
+        public static List<ItemSets> ItemSetsList = new List<ItemSets>();
+    }
+}
