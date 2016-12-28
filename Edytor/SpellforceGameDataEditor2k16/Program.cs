@@ -44,16 +44,16 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += length;
         }
 
-        public static void JumpCounter(ref int classCounter, int classLength, int counterSize = 4, int distAfterCounter = 2 , int distToCounter = 6)
+        public static void JumpCounter(ref int classCounter, int classLength, int counterSize = 4, int bytesBeforeCounter = 6 , int bytesAfterCounter = 2)
         {
-            if (distToCounter != 0)
-                Utils.AddUnknown(distToCounter);
+            if (bytesBeforeCounter != 0)
+                Utils.AddUnknown(bytesBeforeCounter);
 
             classCounter = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, counterSize)) / classLength;
             Vars.CurrentOffset += counterSize;
 
-            if (distAfterCounter != 0)
-                Utils.AddUnknown(distAfterCounter);
+            if (bytesAfterCounter != 0)
+                Utils.AddUnknown(bytesAfterCounter);
         }                
     }
 

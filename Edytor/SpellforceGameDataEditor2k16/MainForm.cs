@@ -44,139 +44,108 @@ namespace SpellforceGameDataEditor2k16
             //trzeba całkowicie przepisać wczytywanie
             Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
 
-            for (Vars.CurrentOffset = 0; Vars.CurrentOffset < 26; Vars.CurrentOffset++)
-                Vars.Header[Vars.CurrentOffset] = Vars.GameDataFile[Vars.CurrentOffset];
-
-            Spell.Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / Spell.Length;
-            Vars.CurrentOffset += 4;
-
-            Utils.AddUnknown(2);
-
+            //nagłówek jako pierwszy Unknown
+            Utils.JumpCounter(ref Spell.Count, Spell.Length, 4, 26);
             for (int i = 0; i < Spell.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Spell.Length, Spell.Length);
-                Spell spell = new Spell();
-                spell.EffectID = spellData.SubArray(0, 2);
-                spell.TypeID = spellData.SubArray(2, 2);
-                spell.Reqs = spellData.SubArray(4, 12);
-                spell.Mana = spellData.SubArray(16, 2);
-                spell.CastingTime = spellData.SubArray(18, 4);
-                spell.RecastTime = spellData.SubArray(22, 4);
-                spell.MinRange = spellData.SubArray(26, 2);
-                spell.MaxRange = spellData.SubArray(28, 2);
-                spell.CastingType = spellData.SubArray(30, 2);
-                spell.Stats = spellData.SubArray(32, 44);
-                Vars.SpellList.Add(spell);
+                Spell temp = new Spell();
+                temp.EffectID = spellData.SubArray(0, 2);
+                temp.TypeID = spellData.SubArray(2, 2);
+                temp.Reqs = spellData.SubArray(4, 12);
+                temp.Mana = spellData.SubArray(16, 2);
+                temp.CastingTime = spellData.SubArray(18, 4);
+                temp.RecastTime = spellData.SubArray(22, 4);
+                temp.MinRange = spellData.SubArray(26, 2);
+                temp.MaxRange = spellData.SubArray(28, 2);
+                temp.CastingType = spellData.SubArray(30, 2);
+                temp.Stats = spellData.SubArray(32, 44);
+                Vars.SpellList.Add(temp);
             }
             Vars.CurrentOffset += Spell.Length * Spell.Count;
 
-            Utils.AddUnknown(6);
-
-            SpellUI.Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / SpellUI.Length;
-            Vars.CurrentOffset += 4;
-
-            Utils.AddUnknown(2);
-
+            Utils.JumpCounter(ref SpellUI.Count, SpellUI.Length);
             for (int i = 0; i < SpellUI.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * SpellUI.Length, SpellUI.Length);
-                SpellUI spellui = new SpellUI();
-                spellui.TypeID = spellData.SubArray(0, 2);
-                spellui.NameID = spellData.SubArray(2, 2);
-                spellui.Spellline = spellData.SubArray(4, 2);
-                spellui.Sorting = spellData.SubArray(6, 3);
-                spellui.UIName = spellData.SubArray(9, 64);
-                spellui.Unknown = spellData.SubArray(73, 2);                
-                Vars.SpellUIList.Add(spellui);
+                SpellUI temp = new SpellUI();
+                temp.TypeID = spellData.SubArray(0, 2);
+                temp.NameID = spellData.SubArray(2, 2);
+                temp.Spellline = spellData.SubArray(4, 2);
+                temp.Sorting = spellData.SubArray(6, 3);
+                temp.UIName = spellData.SubArray(9, 64);
+                temp.Unknown = spellData.SubArray(73, 2);                
+                Vars.SpellUIList.Add(temp);
             }
             Vars.CurrentOffset += SpellUI.Length * SpellUI.Count;
 
-
-            //Unitstats
-            Utils.AddUnknown(30); // 30 offsetów przerwy - nieznany segment
-            UnitStats.Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / UnitStats.Length;
-            Vars.CurrentOffset += 4;
-
-            Utils.AddUnknown(2);
-
+            //przemyśleć.
+            Utils.JumpCounter(ref UnitStats.Count, UnitStats.Length, 4, 30);
             for (int i = 0; i < UnitStats.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitStats.Length, UnitStats.Length);
-                UnitStats unitstats = new UnitStats();
-                unitstats.StatsID = spellData.SubArray(0, 2);
-                unitstats.Level = spellData.SubArray(2, 2);
-                unitstats.RaceID = spellData.SubArray(4, 1);
-                unitstats.Attribute = spellData.SubArray(5, 14);
-                unitstats.Unknown = spellData.SubArray(19, 2);
-                unitstats.Resistance = spellData.SubArray(21, 8);
-                unitstats.Speeds = spellData.SubArray(29, 6);
-                unitstats.Size = spellData.SubArray(35, 2);
-                unitstats.Unknown2 = spellData.SubArray(37, 2);
-                unitstats.SpawningTime = spellData.SubArray(39, 4);
-                unitstats.Gender = spellData.SubArray(43, 1);
-                unitstats.HeadID = spellData.SubArray(44, 2);
-                unitstats.SlotsID = spellData.SubArray(46, 1);
+                UnitStats temp = new UnitStats();
+                temp.StatsID = spellData.SubArray(0, 2);
+                temp.Level = spellData.SubArray(2, 2);
+                temp.RaceID = spellData.SubArray(4, 1);
+                temp.Attribute = spellData.SubArray(5, 14);
+                temp.Unknown = spellData.SubArray(19, 2);
+                temp.Resistance = spellData.SubArray(21, 8);
+                temp.Speeds = spellData.SubArray(29, 6);
+                temp.Size = spellData.SubArray(35, 2);
+                temp.Unknown2 = spellData.SubArray(37, 2);
+                temp.SpawningTime = spellData.SubArray(39, 4);
+                temp.Gender = spellData.SubArray(43, 1);
+                temp.HeadID = spellData.SubArray(44, 2);
+                temp.SlotsID = spellData.SubArray(46, 1);
 
-                Vars.UnitStatsList.Add(unitstats);
+                Vars.UnitStatsList.Add(temp);
             }
             Vars.CurrentOffset += UnitStats.Length * UnitStats.Count;
-            // END OF UnitStats
 
-            //HeroWorkerAbilities
-            Utils.JumpCounter(ref HeroWorkerAbilities.Count, HeroWorkerAbilities.Length, 2, 4, 6);
+            Utils.JumpCounter(ref HeroWorkerAbilities.Count, HeroWorkerAbilities.Length);
             for (int i = 0; i < HeroWorkerAbilities.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroWorkerAbilities.Length, HeroWorkerAbilities.Length);
-                HeroWorkerAbilities heroworkersabilities = new HeroWorkerAbilities();
-                heroworkersabilities.StatsID = spellData.SubArray(0, 2);
-                heroworkersabilities.UnitAbilities = spellData.SubArray(2, 3);
-
-                Vars.HeroWorkerAbilitiesList.Add(heroworkersabilities);
+                HeroWorkerAbilities temp = new HeroWorkerAbilities();
+                temp.StatsID = spellData.SubArray(0, 2);
+                temp.UnitAbilities = spellData.SubArray(2, 3);
+                Vars.HeroWorkerAbilitiesList.Add(temp);
             }
             Vars.CurrentOffset += HeroWorkerAbilities.Length * HeroWorkerAbilities.Count;
-            //END OF HeroWorkerAbilities
 
-            //HeroSkills
-            Utils.JumpCounter(ref HeroSkills.Count, HeroSkills.Length, 2, 4, 6);
+            Utils.JumpCounter(ref HeroSkills.Count, HeroSkills.Length);
             for (int i = 0; i < HeroSkills.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroSkills.Length, HeroSkills.Length);
-                HeroSkills heroskills = new HeroSkills();
-                heroskills.StatsID = spellData.SubArray(0, 2);
-                heroskills.SpellNumber = spellData.SubArray(2, 1);
-                heroskills.SpellEffectID = spellData.SubArray(3, 2);
-
-                Vars.HeroSkillsList.Add(heroskills);
+                HeroSkills temp = new HeroSkills();
+                temp.StatsID = spellData.SubArray(0, 2);
+                temp.SpellNumber = spellData.SubArray(2, 1);
+                temp.SpellEffectID = spellData.SubArray(3, 2);
+                Vars.HeroSkillsList.Add(temp);
             }
             Vars.CurrentOffset += HeroSkills.Length * HeroSkills.Count;
-            //END OF HeroSkills
 
-            //ItemType
-            Utils.JumpCounter(ref ItemType.Count, ItemType.Length, 3, 3, 6);
-          
+            Utils.JumpCounter(ref ItemType.Count, ItemType.Length);          
             for (int i = 0; i < ItemType.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemType.Length, ItemType.Length);
-                ItemType itemtype = new ItemType();
-                itemtype.ItemID = spellData.SubArray(0, 2);
-                itemtype.Item_Type = spellData.SubArray(2, 2);
-                itemtype.ItemNameID = spellData.SubArray(4, 2);
-                itemtype.UnitStatsID = spellData.SubArray(6, 2);
-                itemtype.ArmyUnitID = spellData.SubArray(8, 2);
-                itemtype.BuildingID = spellData.SubArray(10, 2);
-                itemtype.Unknown = spellData.SubArray(12, 1);
-                itemtype.SellingPrice = spellData.SubArray(13, 4);
-                itemtype.BuyingPrice = spellData.SubArray(17, 4);
-                itemtype.SetID = spellData.SubArray(21, 1);
-
-                Vars.ItemTypeList.Add(itemtype);
+                ItemType temp = new ItemType();
+                temp.ItemID = spellData.SubArray(0, 2);
+                temp.Item_Type = spellData.SubArray(2, 2);
+                temp.ItemNameID = spellData.SubArray(4, 2);
+                temp.UnitStatsID = spellData.SubArray(6, 2);
+                temp.ArmyUnitID = spellData.SubArray(8, 2);
+                temp.BuildingID = spellData.SubArray(10, 2);
+                temp.Unknown = spellData.SubArray(12, 1);
+                temp.SellingPrice = spellData.SubArray(13, 4);
+                temp.BuyingPrice = spellData.SubArray(17, 4);
+                temp.SetID = spellData.SubArray(21, 1);
+                Vars.ItemTypeList.Add(temp);
             }
             Vars.CurrentOffset += ItemType.Length * ItemType.Count;
-            //END OF ItemType
 
-            //ArmorItemStats
             Utils.JumpCounter(ref ArmorItemStats.Count, ArmorItemStats.Length);
-            //od tej chwili Bartek zgodził się na temp w pętli :)
             for (int i = 0; i < ArmorItemStats.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ArmorItemStats.Length, ArmorItemStats.Length);
@@ -202,26 +171,19 @@ namespace SpellforceGameDataEditor2k16
                 Vars.ArmorItemStatsList.Add(temp);
             }
             Vars.CurrentOffset += ArmorItemStats.Length * ArmorItemStats.Count;
-            //END OF ArmorItemStats
 
-            //ScrollRuneID
             Utils.JumpCounter(ref ScrollRuneID.Count, ScrollRuneID.Length);
-
             for (int i = 0; i < ScrollRuneID.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ScrollRuneID.Length, ScrollRuneID.Length);
                 ScrollRuneID temp = new ScrollRuneID();
                 temp.InInventoryID = spellData.SubArray(0, 2);
-                temp.AddedID = spellData.SubArray(2, 2);
-        
+                temp.AddedID = spellData.SubArray(2, 2);        
                 Vars.ScrollRuneIDList.Add(temp);
             }
             Vars.CurrentOffset += ScrollRuneID.Length * ScrollRuneID.Count;
-            //END OF ScrollRuneID
 
-            //WeaponItemStats
             Utils.JumpCounter(ref WeaponItemStats.Count, WeaponItemStats.Length);
-
             for (int i = 0; i < WeaponItemStats.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * WeaponItemStats.Length, WeaponItemStats.Length);
@@ -238,11 +200,8 @@ namespace SpellforceGameDataEditor2k16
                 Vars.WeaponItemStatsList.Add(temp);
             }
             Vars.CurrentOffset += WeaponItemStats.Length * WeaponItemStats.Count;
-            //END OF WeaponItemStats
 
-            //ItemRequirements
             Utils.JumpCounter(ref ItemRequirements.Count, ItemRequirements.Length);
-
             for (int i = 0; i < ItemRequirements.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemRequirements.Length, ItemRequirements.Length);
@@ -256,11 +215,8 @@ namespace SpellforceGameDataEditor2k16
                 Vars.ItemRequirementsList.Add(temp);
             }
             Vars.CurrentOffset += ItemRequirements.Length * ItemRequirements.Count;
-            //END OF ItemRequirements
 
-            //ItemSpellEffects
             Utils.JumpCounter(ref ItemSpellEffects.Count, ItemSpellEffects.Length);
-
             for (int i = 0; i < ItemSpellEffects.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemSpellEffects.Length, ItemSpellEffects.Length);
@@ -272,9 +228,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.ItemSpellEffectsList.Add(temp);
             }
             Vars.CurrentOffset += ItemSpellEffects.Length * ItemSpellEffects.Count;
-            //END OF ItemSpellEffects
 
-            //ItemUI
             Utils.JumpCounter(ref ItemUI.Count, ItemUI.Length);
             for (int i = 0; i < ItemUI.Count; i++)
             {
@@ -287,9 +241,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.ItemUIList.Add(temp);
             }
             Vars.CurrentOffset += ItemUI.Length * ItemUI.Count;
-            //END OF ItemUI
 
-            //SpellItemID
             Utils.JumpCounter(ref SpellItemID.Count, SpellItemID.Length);
             for (int i = 0; i < SpellItemID.Count; i++)
             {
@@ -300,9 +252,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.SpellItemIDList.Add(temp);
             }
             Vars.CurrentOffset += SpellItemID.Length * SpellItemID.Count;
-            //END OF SpellItemID
 
-            //Text
             Utils.JumpCounter(ref Texts.Count, Texts.Length);
             for (int i = 0; i < Texts.Count; i++)
             {
@@ -316,11 +266,8 @@ namespace SpellforceGameDataEditor2k16
                 Vars.TextsList.Add(temp);
             }
             Vars.CurrentOffset += Texts.Length * Texts.Count;
-            //END OF Text
 
-            //RaceStats
             Utils.JumpCounter(ref RaceStats.Count, RaceStats.Length);
-
             for (int i = 0; i < RaceStats.Count; i++)
             {
                 byte[] spellData = Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * RaceStats.Length, RaceStats.Length);
@@ -331,14 +278,10 @@ namespace SpellforceGameDataEditor2k16
                 temp.Unknown2 = spellData.SubArray(9, 7);
                 temp.StatsID = spellData.SubArray(16, 3);
                 temp.Unknown3 = spellData.SubArray(19, 8);
-
                 Vars.RaceStatsList.Add(temp);
             }
-
             Vars.CurrentOffset += RaceStats.Length * RaceStats.Count;
-            //END OF RaceStats
 
-            //HeadStats
             Utils.JumpCounter(ref HeadStats.Count, HeadStats.Length);
             for (int i = 0; i < HeadStats.Count; i++)
             {
@@ -347,13 +290,10 @@ namespace SpellforceGameDataEditor2k16
                 temp.HeadID1 = spellData.SubArray(0, 1);
                 temp.HeadID2 = spellData.SubArray(1, 1);
                 temp.Unknown = spellData.SubArray(2, 1);
-
                 Vars.HeadStatsList.Add(temp);
             }
             Vars.CurrentOffset += HeadStats.Length * HeadStats.Count;
-            //END OF HeadStats
 
-            //UnitNames
             Utils.JumpCounter(ref UnitNames.Count, UnitNames.Length);
             for (int i = 0; i < UnitNames.Count; i++)
             {
@@ -372,9 +312,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.UnitNamesList.Add(temp);
             }
             Vars.CurrentOffset += UnitNames.Length * UnitNames.Count;
-            //END OF UnitNames
 
-            //UnitEquipment
             Utils.JumpCounter(ref UnitEquipment.Count, UnitEquipment.Length);
             for (int i = 0; i < UnitEquipment.Count; i++)
             {
@@ -386,9 +324,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.UnitEquipmentList.Add(temp);
             }
             Vars.CurrentOffset += UnitEquipment.Length * UnitEquipment.Count;
-            //END OF UnitEquipment
 
-            //UnitSpellsSkills
             Utils.JumpCounter(ref UnitSpellsSkills.Count, UnitSpellsSkills.Length);
             for (int i = 0; i < UnitSpellsSkills.Count; i++)
             {
@@ -400,9 +336,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.UnitSpellsSkillsList.Add(temp);
             }
             Vars.CurrentOffset += UnitSpellsSkills.Length * UnitSpellsSkills.Count;
-            //END OF UnitSpellsSkills
 
-            //ArmyRequirements
             Utils.JumpCounter(ref ArmyRequirements.Count, ArmyRequirements.Length);
             for (int i = 0; i < ArmyRequirements.Count; i++)
             {
@@ -414,9 +348,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.ArmyRequirementsList.Add(temp);
             }
             Vars.CurrentOffset += ArmyRequirements.Length * ArmyRequirements.Count;
-            //END OF ArmyRequirements
 
-            //UnitLoot
             Utils.JumpCounter(ref UnitLoot.Count, UnitLoot.Length);
             for (int i = 0; i < UnitLoot.Count; i++)
             {
@@ -432,9 +364,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.UnitLootList.Add(temp);
             }
             Vars.CurrentOffset += UnitLoot.Length * UnitLoot.Count;
-            //END OF UnitLoot
 
-            //BuildingRequirements
             Utils.JumpCounter(ref BuildingRequirements.Count, BuildingRequirements.Length);
             for (int i = 0; i < BuildingRequirements.Count; i++)
             {
@@ -446,7 +376,6 @@ namespace SpellforceGameDataEditor2k16
                 Vars.BuildingRequirementsList.Add(temp);
             }
             Vars.CurrentOffset += BuildingRequirements.Length * BuildingRequirements.Count;
-            //END OF BuildingRequirements
 
             //MagicIDNameID
 
@@ -479,7 +408,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
         public static int CurrentOffset;
         public static List<byte[]> Unknowns = new List<byte[]>();
-        public static byte[] Header = new byte[27];
 
         public static List<Spell> SpellList = new List<Spell>();
         public static List<SpellUI> SpellUIList = new List<SpellUI>();
