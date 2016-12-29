@@ -35,26 +35,6 @@ namespace SpellforceGameDataEditor2k16
             Array.Copy(data, index, result, 0, length);
             return result;
         }
-
-        public static void AddUnknown(int length)
-        {
-            byte[] unk = new byte[length];
-            unk = Vars.GameDataFile.SubArray(Vars.CurrentOffset, length);
-            Vars.Unknowns.Add(unk);
-            Vars.CurrentOffset += length;
-        }
-
-        public static void JumpCounter(ref int classCounter, int classLength, int bytesBeforeCounter = 6 , int bytesAfterCounter = 2, int counterSize = 4)
-        {
-            if (bytesBeforeCounter != 0)
-                Utils.AddUnknown(bytesBeforeCounter);
-
-            classCounter = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, counterSize)) / classLength;
-            Vars.CurrentOffset += counterSize;
-
-            if (bytesAfterCounter != 0)
-                Utils.AddUnknown(bytesAfterCounter);
-        }
 }
 
     static class Program

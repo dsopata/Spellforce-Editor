@@ -43,126 +43,123 @@ namespace SpellforceGameDataEditor2k16
             //trzeba całkowicie przepisać wczytywanie
             Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
 
-            //nagłówek jako zerowy Unknown
-            Utils.AddUnknown(20);
+            Vars.Header = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 20);
+            Vars.CurrentOffset += 20;
 
-            Utils.JumpCounter(ref Spell.Count, Spell.Length);
+            Spell.GetCount();
             for (int i = 0; i < Spell.Count; i++)
                 Vars.SpellList.Add(new Spell(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Spell.Length, Spell.Length)));
             Vars.CurrentOffset += Spell.Length * Spell.Count;
 
-            Utils.JumpCounter(ref SpellUI.Count, SpellUI.Length);
+            SpellUI.GetCount();
             for (int i = 0; i < SpellUI.Count; i++)
                 Vars.SpellUIList.Add(new SpellUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * SpellUI.Length, SpellUI.Length)));
             Vars.CurrentOffset += SpellUI.Length * SpellUI.Count;
 
-            Utils.JumpCounter(ref Unknown1.Count, Unknown1.Length);
+            Unknown1.GetCount();
             for (int i = 0; i < Unknown1.Count; i++)
                 Vars.Unknown1List.Add(new Unknown1(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Unknown1.Length, Unknown1.Length)));
             Vars.CurrentOffset += Unknown1.Length * Unknown1.Count;
 
-            Utils.JumpCounter(ref UnitStats.Count, UnitStats.Length);
+            UnitStats.GetCount();
             for (int i = 0; i < UnitStats.Count; i++)
                 Vars.UnitStatsList.Add(new UnitStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitStats.Length, UnitStats.Length)));
             Vars.CurrentOffset += UnitStats.Length * UnitStats.Count;
 
-            Utils.JumpCounter(ref HeroWorkerAbilities.Count, HeroWorkerAbilities.Length);
+            HeroWorkerAbilities.GetCount();
             for (int i = 0; i < HeroWorkerAbilities.Count; i++)
                 Vars.HeroWorkerAbilitiesList.Add(new HeroWorkerAbilities(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroWorkerAbilities.Length, HeroWorkerAbilities.Length)));
             Vars.CurrentOffset += HeroWorkerAbilities.Length * HeroWorkerAbilities.Count;
 
-            Utils.JumpCounter(ref HeroSkills.Count, HeroSkills.Length);
+            HeroSkills.GetCount();
             for (int i = 0; i < HeroSkills.Count; i++)
                 Vars.HeroSkillsList.Add(new HeroSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroSkills.Length, HeroSkills.Length)));
             Vars.CurrentOffset += HeroSkills.Length * HeroSkills.Count;
 
-            Utils.JumpCounter(ref ItemType.Count, ItemType.Length);
+            ItemType.GetCount();
             for (int i = 0; i < ItemType.Count; i++)
                 Vars.ItemTypeList.Add(new ItemType(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemType.Length, ItemType.Length)));
             Vars.CurrentOffset += ItemType.Length * ItemType.Count;
 
-            Utils.JumpCounter(ref ArmorItemStats.Count, ArmorItemStats.Length);
+            ArmorItemStats.GetCount();
             for (int i = 0; i < ArmorItemStats.Count; i++)
                 Vars.ArmorItemStatsList.Add(new ArmorItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ArmorItemStats.Length, ArmorItemStats.Length)));
             Vars.CurrentOffset += ArmorItemStats.Length * ArmorItemStats.Count;
 
-            Utils.JumpCounter(ref ScrollRuneID.Count, ScrollRuneID.Length);
+            ScrollRuneID.GetCount();
             for (int i = 0; i < ScrollRuneID.Count; i++)
                 Vars.ScrollRuneIDList.Add(new ScrollRuneID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ScrollRuneID.Length, ScrollRuneID.Length)));
             Vars.CurrentOffset += ScrollRuneID.Length * ScrollRuneID.Count;
 
-            Utils.JumpCounter(ref WeaponItemStats.Count, WeaponItemStats.Length);
+            WeaponItemStats.GetCount();
             for (int i = 0; i < WeaponItemStats.Count; i++)
                 Vars.WeaponItemStatsList.Add(new WeaponItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * WeaponItemStats.Length, WeaponItemStats.Length)));
             Vars.CurrentOffset += WeaponItemStats.Length * WeaponItemStats.Count;
 
-            Utils.JumpCounter(ref ItemRequirements.Count, ItemRequirements.Length);
+            ItemRequirements.GetCount();
             for (int i = 0; i < ItemRequirements.Count; i++)
                 Vars.ItemRequirementsList.Add(new ItemRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemRequirements.Length, ItemRequirements.Length)));
             Vars.CurrentOffset += ItemRequirements.Length * ItemRequirements.Count;
 
-            Utils.JumpCounter(ref ItemSpellEffects.Count, ItemSpellEffects.Length);
+            ItemSpellEffects.GetCount();
             for (int i = 0; i < ItemSpellEffects.Count; i++)
                 Vars.ItemSpellEffectsList.Add(new ItemSpellEffects(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemSpellEffects.Length, ItemSpellEffects.Length)));
             Vars.CurrentOffset += ItemSpellEffects.Length * ItemSpellEffects.Count;
 
-            Utils.JumpCounter(ref ItemUI.Count, ItemUI.Length);
+            ItemUI.GetCount();
             for (int i = 0; i < ItemUI.Count; i++)
                 Vars.ItemUIList.Add(new ItemUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemUI.Length, ItemUI.Length)));
             Vars.CurrentOffset += ItemUI.Length * ItemUI.Count;
 
-            Utils.JumpCounter(ref SpellItemID.Count, SpellItemID.Length);
+            SpellItemID.GetCount();
             for (int i = 0; i < SpellItemID.Count; i++)
                 Vars.SpellItemIDList.Add(new SpellItemID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * SpellItemID.Length, SpellItemID.Length)));
             Vars.CurrentOffset += SpellItemID.Length * SpellItemID.Count;
 
-            Utils.JumpCounter(ref Texts.Count, Texts.Length);
+            Texts.GetCount();
             for (int i = 0; i < Texts.Count; i++)
                 Vars.TextsList.Add(new Texts(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Texts.Length, Texts.Length)));
             Vars.CurrentOffset += Texts.Length * Texts.Count;
 
-            Utils.JumpCounter(ref RaceStats.Count, RaceStats.Length);
+            RaceStats.GetCount();
             for (int i = 0; i < RaceStats.Count; i++)
                 Vars.RaceStatsList.Add(new RaceStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * RaceStats.Length, RaceStats.Length)));
             Vars.CurrentOffset += RaceStats.Length * RaceStats.Count;
 
-            Utils.JumpCounter(ref HeadStats.Count, HeadStats.Length);
+            HeadStats.GetCount();
             for (int i = 0; i < HeadStats.Count; i++)
                 Vars.HeadStatsList.Add(new HeadStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeadStats.Length, HeadStats.Length)));
             Vars.CurrentOffset += HeadStats.Length * HeadStats.Count;
 
-            Utils.JumpCounter(ref UnitNames.Count, UnitNames.Length);
+            UnitNames.GetCount();
             for (int i = 0; i < UnitNames.Count; i++)
                 Vars.UnitNamesList.Add(new UnitNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitNames.Length, UnitNames.Length)));
             Vars.CurrentOffset += UnitNames.Length * UnitNames.Count;
 
-            Utils.JumpCounter(ref UnitEquipment.Count, UnitEquipment.Length);
+            UnitEquipment.GetCount();
             for (int i = 0; i < UnitEquipment.Count; i++)
                 Vars.UnitEquipmentList.Add(new UnitEquipment(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitEquipment.Length, UnitEquipment.Length)));
             Vars.CurrentOffset += UnitEquipment.Length * UnitEquipment.Count;
 
-            Utils.JumpCounter(ref UnitSpellsSkills.Count, UnitSpellsSkills.Length);
+            UnitSpellsSkills.GetCount();
             for (int i = 0; i < UnitSpellsSkills.Count; i++)
                 Vars.UnitSpellsSkillsList.Add(new UnitSpellsSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitSpellsSkills.Length, UnitSpellsSkills.Length)));
             Vars.CurrentOffset += UnitSpellsSkills.Length * UnitSpellsSkills.Count;
 
-            Utils.JumpCounter(ref ArmyRequirements.Count, ArmyRequirements.Length);
+            ArmyRequirements.GetCount();
             for (int i = 0; i < ArmyRequirements.Count; i++)
                 Vars.ArmyRequirementsList.Add(new ArmyRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ArmyRequirements.Length, ArmyRequirements.Length)));
             Vars.CurrentOffset += ArmyRequirements.Length * ArmyRequirements.Count;
 
-            Utils.JumpCounter(ref UnitLoot.Count, UnitLoot.Length);
+            UnitLoot.GetCount();
             for (int i = 0; i < UnitLoot.Count; i++)
                 Vars.UnitLootList.Add(new UnitLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * UnitLoot.Length, UnitLoot.Length)));
             Vars.CurrentOffset += UnitLoot.Length * UnitLoot.Count;
 
-            Utils.JumpCounter(ref BuildingRequirements.Count, BuildingRequirements.Length);
+            BuildingRequirements.GetCount();
             for (int i = 0; i < BuildingRequirements.Count; i++)
                 Vars.BuildingRequirementsList.Add(new BuildingRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * BuildingRequirements.Length, BuildingRequirements.Length)));
             Vars.CurrentOffset += BuildingRequirements.Length * BuildingRequirements.Count;
-
-            Spell spell = Vars.SpellList[1];
-            byte[] serial = spell.Serialize();
 
             GameDataLoadStatus.BackColor = Color.Lime;
             GameDataDumpButton.Enabled = true;
@@ -190,6 +187,7 @@ namespace SpellforceGameDataEditor2k16
         public static string GameDataPath;
         public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
         public static int CurrentOffset;
+        public static byte[] Header = new byte[20];
         public static List<byte[]> Unknowns = new List<byte[]>();
 
         public static List<Spell> SpellList = new List<Spell>();
