@@ -3,10 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace SpellforceGameDataEditor2k16
 {
-    public class Spell
+    public class Segment
+    {
+        public byte[] Serialize()
+        {
+            var data = GetType()
+                      .GetFields(BindingFlags.Instance | BindingFlags.Public)
+                      .Select(field => field.GetValue(this))
+                      .ToList()
+                      .Cast<byte[]>()
+                      .ToList()
+                      .SelectMany(a => a)
+                      .ToArray();
+
+            return data;
+        }
+    }
+
+    public class Spell : Segment
     {
         public static int Length = 76;
         public static int Count;
@@ -33,10 +51,10 @@ namespace SpellforceGameDataEditor2k16
             MaxRange = data.SubArray(28, 2);
             CastingType = data.SubArray(30, 2);
             Stats = data.SubArray(32, 44);
-        }        
+        }
     }
 
-    public class SpellUI
+    public class SpellUI : Segment
     {
         public static int Length = 75;
         public static int Count;
@@ -59,7 +77,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class Unknown1
+    public class Unknown1 : Segment
     {
         public static int Length = 12;
         public static int Count;
@@ -72,7 +90,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class UnitStats
+    public class UnitStats : Segment
     {
         public static int Length = 47;
         public static int Count;
@@ -109,7 +127,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class HeroWorkerAbilities
+    public class HeroWorkerAbilities : Segment
     {
         public static int Length = 5;
         public static int Count;
@@ -124,7 +142,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class HeroSkills
+    public class HeroSkills : Segment
     {
         public static int Length = 5;
         public static int Count;
@@ -141,7 +159,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ItemType
+    public class ItemType : Segment
     {
         public static int Length = 22;
         public static int Count;
@@ -172,7 +190,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
         
-    public class ArmorItemStats
+    public class ArmorItemStats : Segment
     {
         public static int Length = 36;
         public static int Count;
@@ -219,7 +237,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ScrollRuneID
+    public class ScrollRuneID : Segment
     {
         public static int Length = 4;
         public static int Count;
@@ -234,7 +252,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class WeaponItemStats
+    public class WeaponItemStats : Segment
     {
         public static int Length = 16;
         public static int Count;
@@ -261,7 +279,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ItemRequirements
+    public class ItemRequirements : Segment
     {
         public static int Length = 6;
         public static int Count;
@@ -282,7 +300,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ItemSpellEffects
+    public class ItemSpellEffects : Segment
     {
         public static int Length = 5;
         public static int Count;
@@ -299,7 +317,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ItemUI
+    public class ItemUI : Segment
     {
         public static int Length = 69;
         public static int Count;
@@ -318,7 +336,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class SpellItemID
+    public class SpellItemID : Segment
     {
         public static int Length = 4;
         public static int Count;
@@ -333,7 +351,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class Texts
+    public class Texts : Segment
     {
         public static int Length = 566;
         public static int Count;
@@ -354,7 +372,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class RaceStats
+    public class RaceStats : Segment
     {
         public static int Length = 27;
         public static int Count;
@@ -377,7 +395,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class HeadStats
+    public class HeadStats : Segment
     {
         public static int Length = 3;
         public static int Count;
@@ -394,7 +412,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class UnitNames
+    public class UnitNames : Segment
     {
         public static int Length = 64;
         public static int Count;
@@ -425,7 +443,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class UnitEquipment
+    public class UnitEquipment : Segment
     {
         public static int Length = 5;
         public static int Count;
@@ -442,7 +460,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class UnitSpellsSkills
+    public class UnitSpellsSkills : Segment
     {
         public static int Length = 5;
         public static int Count;
@@ -459,7 +477,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ArmyRequirements
+    public class ArmyRequirements : Segment
     {
         public static int Length = 4;
         public static int Count;
@@ -476,7 +494,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class UnitLoot
+    public class UnitLoot : Segment
     {
         public static int Length = 11;
         public static int Count;
@@ -501,7 +519,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class BuildingRequirements
+    public class BuildingRequirements : Segment
     {
         public static int Length = 5;
         public static int Count;
@@ -519,162 +537,161 @@ namespace SpellforceGameDataEditor2k16
     }
     //FIN *.*
 
-    public class MagicIDNameID
+    public class MagicIDNameID : Segment
     {
         public static int Length = 0;
         public static int Count;
 
     }
 
-    public class SkillRequirements
+    public class SkillRequirements : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class MerchantIDUnitID
+    public class MerchantIDUnitID : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class MerchantInventory
+    public class MerchantInventory : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
-    public class MerchantRates
+    public class MerchantRates : Segment
     {
-        public static int Length = 6;
-        public static int Count;
-
-    }
-
-    public class sql_goodNames
-    {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class PlayerLevelStats
+    public class sql_goodNames : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class ObjectStatsNames
+    public class PlayerLevelStats : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class MonumentInteractiveObjectStats
+    public class ObjectStatsNames : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class ChestLoot
+    public class MonumentInteractiveObjectStats : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    //public class Unknown2
-    //{
-    //    public static int Length = ;
-    //    public static int Count;
-    //
-    //}
-
-    public class QuestMaps
+    public class ChestLoot : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class Portals
+    public class Unknown2 : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
+        public static int Count;
+    
+    }
+
+    public class QuestMaps : Segment
+    {
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    //public class Unknown3 /*(maybe from sql_effect.lua)*/
-    //{
-    //    public static int Length = ;
-    //    public static int Count;
-    //
-    //}
-
-    public class QuestGameMenu
+    public class Portals : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class ButtonDescription
+    public class Unknown3 : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
+        public static int Count;
+    }
+    
+    public class QuestGameMenu : Segment
+    {
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class QuestID
+    public class ButtonDescription : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class WeaponTypeStats
+    public class QuestID : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class WeaponMaterial
+    public class WeaponTypeStats : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    //public class Unknown4
-    //{
-    //    public static int Length = ;
-    //    public static int Count;
-    //
-    //}
-
-    public class Heads
+    public class WeaponMaterial : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class UpgradeStatsUI
+    public class Unknown4 : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
+        public static int Count;
+    
+    }
+
+    public class Heads : Segment
+    {
+        public static int Length = 0;
         public static int Count;
 
     }
 
-    public class ItemSets
+    public class UpgradeStatsUI : Segment
     {
-        public static int Length = 6;
+        public static int Length = 0;
+        public static int Count;
+
+    }
+
+    public class ItemSets : Segment
+    {
+        public static int Length = 0;
         public static int Count;
 
     }

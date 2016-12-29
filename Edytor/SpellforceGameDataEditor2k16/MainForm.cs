@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 
 namespace SpellforceGameDataEditor2k16
 {
@@ -75,7 +76,7 @@ namespace SpellforceGameDataEditor2k16
                 Vars.HeroSkillsList.Add(new HeroSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * HeroSkills.Length, HeroSkills.Length)));
             Vars.CurrentOffset += HeroSkills.Length * HeroSkills.Count;
 
-            Utils.JumpCounter(ref ItemType.Count, ItemType.Length);          
+            Utils.JumpCounter(ref ItemType.Count, ItemType.Length);
             for (int i = 0; i < ItemType.Count; i++)
                 Vars.ItemTypeList.Add(new ItemType(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * ItemType.Length, ItemType.Length)));
             Vars.CurrentOffset += ItemType.Length * ItemType.Count;
@@ -159,6 +160,9 @@ namespace SpellforceGameDataEditor2k16
             for (int i = 0; i < BuildingRequirements.Count; i++)
                 Vars.BuildingRequirementsList.Add(new BuildingRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * BuildingRequirements.Length, BuildingRequirements.Length)));
             Vars.CurrentOffset += BuildingRequirements.Length * BuildingRequirements.Count;
+
+            Spell spell = Vars.SpellList[1];
+            byte[] serial = spell.Serialize();
 
             GameDataLoadStatus.BackColor = Color.Lime;
             GameDataDumpButton.Enabled = true;

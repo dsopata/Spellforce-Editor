@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace SpellforceGameDataEditor2k16
 {
-
     public static class Utils
     {
         public static int LittleEndianToInt(byte[] little)
@@ -67,7 +67,7 @@ namespace SpellforceGameDataEditor2k16
             }
             return result;
         }
-    }
+}
 
     static class Program
     {
