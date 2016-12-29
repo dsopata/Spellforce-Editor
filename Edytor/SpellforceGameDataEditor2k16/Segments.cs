@@ -57,7 +57,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Spell(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -92,7 +92,7 @@ namespace SpellforceGameDataEditor2k16
 
         public SpellUI(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -122,7 +122,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Unknown1(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -164,7 +164,7 @@ namespace SpellforceGameDataEditor2k16
 
         public UnitStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -195,7 +195,7 @@ namespace SpellforceGameDataEditor2k16
 
         public HeroWorkerAbilities(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -227,7 +227,7 @@ namespace SpellforceGameDataEditor2k16
 
         public HeroSkills(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -266,7 +266,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ItemType(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -275,6 +275,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -312,7 +313,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ArmorItemStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -321,6 +322,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -342,7 +344,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ScrollRuneID(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -351,6 +353,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -378,7 +381,7 @@ namespace SpellforceGameDataEditor2k16
 
         public WeaponItemStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -387,6 +390,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -411,7 +415,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ItemRequirements(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -420,6 +424,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -442,7 +447,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ItemSpellEffects(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -451,6 +456,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -474,7 +480,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ItemUI(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -483,6 +489,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -504,7 +511,7 @@ namespace SpellforceGameDataEditor2k16
 
         public SpellItemID(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -513,6 +520,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -537,7 +545,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Texts(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -546,6 +554,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -571,7 +580,7 @@ namespace SpellforceGameDataEditor2k16
 
         public RaceStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -580,6 +589,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -602,7 +612,7 @@ namespace SpellforceGameDataEditor2k16
 
         public HeadStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -641,7 +651,7 @@ namespace SpellforceGameDataEditor2k16
 
         public UnitNames(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -650,6 +660,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -672,7 +683,7 @@ namespace SpellforceGameDataEditor2k16
 
         public UnitEquipment(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -681,6 +692,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -703,7 +715,7 @@ namespace SpellforceGameDataEditor2k16
 
         public UnitSpellsSkills(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -712,6 +724,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -734,7 +747,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ArmyRequirements(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -770,7 +783,7 @@ namespace SpellforceGameDataEditor2k16
 
         public UnitLoot(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -779,6 +792,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -801,7 +815,7 @@ namespace SpellforceGameDataEditor2k16
 
         public BuildingRequirements(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -810,6 +824,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -828,7 +843,7 @@ namespace SpellforceGameDataEditor2k16
 
         public MagicIDNameID(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -837,6 +852,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -855,7 +871,7 @@ namespace SpellforceGameDataEditor2k16
 
         public SkillRequirements(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -882,7 +898,7 @@ namespace SpellforceGameDataEditor2k16
 
         public MerchantIDUnitID(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -891,6 +907,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -909,7 +926,7 @@ namespace SpellforceGameDataEditor2k16
 
         public MerchantInventory(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -918,6 +935,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -935,7 +953,7 @@ namespace SpellforceGameDataEditor2k16
 
         public MerchantRates(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -944,6 +962,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -962,7 +981,7 @@ namespace SpellforceGameDataEditor2k16
 
         public sql_goodNames(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -971,6 +990,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -989,7 +1009,7 @@ namespace SpellforceGameDataEditor2k16
 
         public PlayerLevelStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -998,6 +1018,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1016,7 +1037,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ObjectStatsNames(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1025,6 +1046,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1043,7 +1065,7 @@ namespace SpellforceGameDataEditor2k16
 
         public MonumentInteractiveObjectStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1052,6 +1074,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1070,7 +1093,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ChestLoot(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1079,6 +1102,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1097,7 +1121,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Unknown2(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1106,6 +1130,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1124,7 +1149,7 @@ namespace SpellforceGameDataEditor2k16
 
         public QuestMaps(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1133,6 +1158,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1151,7 +1177,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Portals(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1160,6 +1186,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1178,7 +1205,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Unknown3(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1206,7 +1233,7 @@ namespace SpellforceGameDataEditor2k16
 
         public QuestGameMenu(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1215,6 +1242,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1233,7 +1261,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ButtonDescription(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1242,6 +1270,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1260,7 +1289,7 @@ namespace SpellforceGameDataEditor2k16
 
         public QuestID(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1269,6 +1298,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1287,7 +1317,7 @@ namespace SpellforceGameDataEditor2k16
 
         public WeaponTypeStats(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1296,6 +1326,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1314,7 +1345,7 @@ namespace SpellforceGameDataEditor2k16
 
         public WeaponMaterial(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1323,6 +1354,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1341,7 +1373,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Unknown4(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1350,6 +1382,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1368,7 +1401,7 @@ namespace SpellforceGameDataEditor2k16
 
         public Heads(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1377,6 +1410,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1395,7 +1429,7 @@ namespace SpellforceGameDataEditor2k16
 
         public UpgradeStatsUI(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1404,6 +1438,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();
@@ -1422,7 +1457,7 @@ namespace SpellforceGameDataEditor2k16
 
         public ItemSets(byte[] data) : base(data) { }
 
-        public static void GetCount()
+        private static void GetCount()
         {
             PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
             Vars.CurrentOffset += 6;
@@ -1431,6 +1466,7 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
         public static void Read()
         {
             GetCount();

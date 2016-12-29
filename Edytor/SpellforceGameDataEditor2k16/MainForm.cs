@@ -69,7 +69,31 @@ namespace SpellforceGameDataEditor2k16
             ArmyRequirements.Read();
             UnitLoot.Read();
             BuildingRequirements.Read();
+            //MagicIDNameID.Read();
+            //SkillRequirements.Read();
+            //MerchantIDUnitID.Read();
+            //MerchantInventory.Read();
+            //MerchantRates.Read();
+            //sql_goodNames.Read();
+            //PlayerLevelStats.Read();
+            //ObjectStatsNames.Read();
+            //MonumentInteractiveObjectStats.Read();
+            //ChestLoot.Read();
+            //Unknown2.Read();
+            //QuestMaps.Read();
+            //Portals.Read();
+            //Unknown3.Read();
+            //QuestGameMenu.Read();
+            //ButtonDescription.Read();
+            //QuestID.Read();
+            //WeaponTypeStats.Read();
+            //WeaponMaterial.Read();
+            //Unknown4.Read();
+            //Heads.Read();
+            //UpgradeStatsUI.Read();
+            //ItemSets.Read();
 
+            TestLabel.Text = "Wszystko cacy!";
             GameDataLoadStatus.BackColor = Color.Lime;
             GameDataDumpButton.Enabled = true;
         }

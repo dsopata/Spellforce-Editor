@@ -137,9 +137,9 @@
             this.TestLabel.AutoSize = true;
             this.TestLabel.Location = new System.Drawing.Point(13, 146);
             this.TestLabel.Name = "TestLabel";
-            this.TestLabel.Size = new System.Drawing.Size(35, 13);
+            this.TestLabel.Size = new System.Drawing.Size(85, 13);
             this.TestLabel.TabIndex = 6;
-            this.TestLabel.Text = "label1";
+            this.TestLabel.Text = "Testuj miszczu...";
             // 
             // MainForm
             // 
