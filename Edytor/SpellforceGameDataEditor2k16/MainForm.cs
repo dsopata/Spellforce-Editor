@@ -69,7 +69,7 @@ namespace SpellforceGameDataEditor2k16
             ArmyRequirements.Read();
             UnitLoot.Read();
             BuildingRequirements.Read();
-            
+
             GameDataLoadStatus.BackColor = Color.Lime;
             GameDataDumpButton.Enabled = true;
         }
