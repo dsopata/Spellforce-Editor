@@ -66,6 +66,14 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.SpellList.Add(new Spell(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class SpellUI : Segment
@@ -93,6 +101,14 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.SpellUIList.Add(new SpellUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class Unknown1 : Segment
@@ -114,6 +130,14 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.Unknown1List.Add(new Unknown1(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -150,6 +174,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 2;
         }
 
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.UnitStatsList.Add(new UnitStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class HeroWorkerAbilities : Segment
@@ -173,7 +204,14 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
-
+        
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.HeroWorkerAbilitiesList.Add(new HeroWorkerAbilities(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class HeroSkills : Segment
@@ -199,6 +237,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 2;
         }
 
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.HeroSkillsList.Add(new HeroSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class ItemType : Segment
@@ -229,6 +274,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ItemTypeList.Add(new ItemType(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
         
@@ -269,6 +321,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ArmorItemStatsList.Add(new ArmorItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class ScrollRuneID : Segment
@@ -291,6 +350,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ScrollRuneIDList.Add(new ScrollRuneID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -321,6 +387,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.WeaponItemStatsList.Add(new WeaponItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class ItemRequirements : Segment
@@ -347,6 +420,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ItemRequirementsList.Add(new ItemRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class ItemSpellEffects : Segment
@@ -370,6 +450,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ItemSpellEffectsList.Add(new ItemSpellEffects(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -396,6 +483,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ItemUIList.Add(new ItemUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class SpellItemID : Segment
@@ -418,6 +512,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.SpellItemIDList.Add(new SpellItemID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -444,6 +545,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.TextsList.Add(new Texts(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -472,6 +580,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.RaceStatsList.Add(new RaceStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class HeadStats : Segment
@@ -495,6 +610,14 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.HeadStatsList.Add(new HeadStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -527,6 +650,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.UnitNamesList.Add(new UnitNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class UnitEquipment : Segment
@@ -550,6 +680,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.UnitEquipmentList.Add(new UnitEquipment(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -575,6 +712,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.UnitSpellsSkillsList.Add(new UnitSpellsSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class ArmyRequirements : Segment
@@ -598,6 +742,14 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ArmyRequirementsList.Add(new ArmyRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -627,6 +779,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.UnitLootList.Add(new UnitLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class BuildingRequirements : Segment
@@ -651,6 +810,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.BuildingRequirementsList.Add(new BuildingRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }    
 
     public class MagicIDNameID : Segment
@@ -670,6 +836,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.MagicIDNameIDList.Add(new MagicIDNameID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -691,6 +864,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.SkillRequirementsList.Add(new SkillRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class MerchantIDUnitID : Segment
@@ -710,6 +890,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.MerchantIDUnitIDList.Add(new MerchantIDUnitID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -731,6 +918,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.MerchantInventoryList.Add(new MerchantInventory(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
     public class MerchantRates : Segment
     {
@@ -749,6 +943,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.MerchantRatesList.Add(new MerchantRates(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -770,6 +971,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.sql_goodNamesList.Add(new sql_goodNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class PlayerLevelStats : Segment
@@ -789,6 +997,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.PlayerLevelStatsList.Add(new PlayerLevelStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -810,6 +1025,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ObjectStatsNamesList.Add(new ObjectStatsNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class MonumentInteractiveObjectStats : Segment
@@ -829,6 +1051,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.MonumentInteractiveObjectStatsList.Add(new MonumentInteractiveObjectStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -850,6 +1079,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ChestLootList.Add(new ChestLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class Unknown2 : Segment
@@ -869,6 +1105,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.Unknown2List.Add(new Unknown2(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -890,6 +1133,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.QuestMapsList.Add(new QuestMaps(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class Portals : Segment
@@ -909,6 +1159,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.PortalsList.Add(new Portals(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -930,6 +1187,14 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.Unknown3List.Add(new Unknown3(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
     
     public class QuestGameMenu : Segment
@@ -949,6 +1214,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.QuestGameMenuList.Add(new QuestGameMenu(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -970,6 +1242,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ButtonDescriptionList.Add(new ButtonDescription(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class QuestID : Segment
@@ -989,6 +1268,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.QuestIDList.Add(new QuestID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -1010,6 +1296,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.WeaponTypeStatsList.Add(new WeaponTypeStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class WeaponMaterial : Segment
@@ -1029,6 +1322,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.WeaponMaterialList.Add(new WeaponMaterial(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -1050,6 +1350,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.Unknown4List.Add(new Unknown4(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class Heads : Segment
@@ -1069,6 +1376,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.HeadsList.Add(new Heads(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
@@ -1090,6 +1404,13 @@ namespace SpellforceGameDataEditor2k16
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
         }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.UpgradeStatsUIList.Add(new UpgradeStatsUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
     }
 
     public class ItemSets : Segment
@@ -1109,6 +1430,13 @@ namespace SpellforceGameDataEditor2k16
             Vars.CurrentOffset += 4;
             PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
             Vars.CurrentOffset += 2;
+        }
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                Vars.ItemSetsList.Add(new ItemSets(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
         }
     }
 
