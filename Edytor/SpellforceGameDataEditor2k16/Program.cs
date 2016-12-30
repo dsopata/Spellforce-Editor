@@ -141,6 +141,7 @@ namespace SpellforceGameDataEditor2k16
         {
             FileStream header = new FileStream(Vars.GameDataPath, FileMode.Create);
             header.Write(Vars.Header, 0, Vars.Header.Length);
+            header.Close();
 
             FileStream stream = new FileStream(Vars.GameDataPath, FileMode.Append);
             Spell.Write(stream);
@@ -189,6 +190,7 @@ namespace SpellforceGameDataEditor2k16
             Heads.Write(stream);
             UpgradeStatsUI.Write(stream);
             ItemSets.Write(stream);
+            stream.Close();
         }
     }
 

@@ -71,7 +71,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
         public static int CurrentOffset;
         public static byte[] Header = new byte[20];
-
         public static Dictionary<string, object> ListDict = new Dictionary<string, object>();        
     }
 }
