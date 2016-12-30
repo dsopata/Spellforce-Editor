@@ -208,3 +208,5 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 }
+
+//jakiś komentarz po prostu
