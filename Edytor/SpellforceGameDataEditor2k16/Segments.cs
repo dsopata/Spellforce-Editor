@@ -1114,7 +1114,7 @@ namespace SpellforceGameDataEditor2k16
         }
     }
 
-    public class ArmyRequirements : Segment
+    public class UnitCosts : Segment
     {
         public static int Length = 4;
         public static byte[] PreCount;
@@ -1124,7 +1124,7 @@ namespace SpellforceGameDataEditor2k16
         public byte[] ResourceID = new byte[1]; 
         public byte[] Amount = new byte[1];
 
-        public ArmyRequirements(byte[] data) : base(data) { }
+        public UnitCosts(byte[] data) : base(data) { }
 
         private static void GetCount()
         {
@@ -1140,7 +1140,7 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                ((List<ArmyRequirements>)Vars.ListDict["ArmyRequirements"]).Add(new ArmyRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitCosts>)Vars.ListDict["UnitCosts"]).Add(new UnitCosts(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
         }
 
@@ -1158,14 +1158,14 @@ namespace SpellforceGameDataEditor2k16
 
                 for (int i = 0; i < Count; i++)
                 {
-                    stream.Write(((List<ArmyRequirements>)Vars.ListDict["ArmyRequirements"])[i].Serialize(), offset, Length);
+                    stream.Write(((List<UnitCosts>)Vars.ListDict["UnitCosts"])[i].Serialize(), offset, Length);
                     offset += Length;
                 }
             }
         }
     }
 
-    public class UnitLoot : Segment
+    public class UnitCorpseLoot : Segment
     {
         public static int Length = 11;
         public static byte[] PreCount;
@@ -1179,7 +1179,7 @@ namespace SpellforceGameDataEditor2k16
         public byte[] Item2Chance = new byte[1];
         public byte[] Item3ID = new byte[2]; 
 
-        public UnitLoot(byte[] data) : base(data) { }
+        public UnitCorpseLoot(byte[] data) : base(data) { }
 
         private static void GetCount()
         {
@@ -1195,7 +1195,7 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                ((List<UnitLoot>)Vars.ListDict["UnitLoot"]).Add(new UnitLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitCorpseLoot>)Vars.ListDict["UnitCorpseLoot"]).Add(new UnitCorpseLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
         }
 
@@ -1213,14 +1213,14 @@ namespace SpellforceGameDataEditor2k16
 
                 for (int i = 0; i < Count; i++)
                 {
-                    stream.Write(((List<UnitLoot>)Vars.ListDict["UnitLoot"])[i].Serialize(), offset, Length);
+                    stream.Write(((List<UnitCorpseLoot>)Vars.ListDict["UnitCorpseLoot"])[i].Serialize(), offset, Length);
                     offset += Length;
                 }
             }
         }
     }
 
-    public class BuildingRequirements : Segment
+    public class UnitBuildings : Segment
     {
         public static int Length = 5;
         public static byte[] PreCount;
@@ -1229,6 +1229,156 @@ namespace SpellforceGameDataEditor2k16
         public byte[] UnitID = new byte[2];
         public byte[] RequirementNumber = new byte[1];
         public byte[] BuildingID = new byte[2];
+
+        public UnitBuildings(byte[] data) : base(data) { }
+
+        private static void GetCount()
+        {
+            PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
+            Vars.CurrentOffset += 6;
+            Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / Length;
+            Vars.CurrentOffset += 4;
+            PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
+            Vars.CurrentOffset += 2;
+        }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                ((List<UnitBuildings>)Vars.ListDict["UnitBuildings"]).Add(new UnitBuildings(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UnitBuildings>)Vars.ListDict["UnitBuildings"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
+        }
+    }
+
+    public class BuildingStats : Segment
+    {
+        public static int Length = 0;
+        public static byte[] PreCount;
+        public static int Count;
+        public static byte[] PostCount;
+
+        //TODO
+
+        public BuildingStats(byte[] data) : base(data) { }
+
+        private static void GetCount()
+        {
+            PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
+            Vars.CurrentOffset += 6;
+            Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / Length;
+            Vars.CurrentOffset += 4;
+            PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
+            Vars.CurrentOffset += 2;
+        }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                ((List<BuildingStats>)Vars.ListDict["BuildingStats"]).Add(new BuildingStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<BuildingStats>)Vars.ListDict["BuildingStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
+        }
+    }
+
+    public class BuildingStats2 : Segment
+    {
+        public static int Length = 0;
+        public static byte[] PreCount;
+        public static int Count;
+        public static byte[] PostCount;
+
+        //TODO
+
+        public BuildingStats2(byte[] data) : base(data) { }
+
+        private static void GetCount()
+        {
+            PreCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 6);
+            Vars.CurrentOffset += 6;
+            Count = Utils.LittleEndianToInt(Vars.GameDataFile.SubArray(Vars.CurrentOffset, 4)) / Length;
+            Vars.CurrentOffset += 4;
+            PostCount = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 2);
+            Vars.CurrentOffset += 2;
+        }
+
+        public static void Read()
+        {
+            GetCount();
+            for (int i = 0; i < Count; i++)
+                ((List<BuildingStats2>)Vars.ListDict["BuildingStats2"]).Add(new BuildingStats2(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+            Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<BuildingStats2>)Vars.ListDict["BuildingStats2"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
+        }
+    }
+
+    public class BuildingRequirements : Segment
+    {
+        public static int Length = 0;
+        public static byte[] PreCount;
+        public static int Count;
+        public static byte[] PostCount;
+
+        //TODO
 
         public BuildingRequirements(byte[] data) : base(data) { }
 
@@ -1269,7 +1419,8 @@ namespace SpellforceGameDataEditor2k16
                 }
             }
         }
-    }    
+    }
+
 
     public class MagicIDNameID : Segment
     {
@@ -1469,6 +1620,7 @@ namespace SpellforceGameDataEditor2k16
             }
         }
     }
+
     public class MerchantRates : Segment
     {
         public static int Length = 0;
