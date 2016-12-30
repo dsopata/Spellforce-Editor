@@ -199,7 +199,6 @@ namespace SpellforceGameDataEditor2k16
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        /// io
         [STAThread]
         static void Main()
         {
