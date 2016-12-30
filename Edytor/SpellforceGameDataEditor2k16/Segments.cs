@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
+using System.IO;
 
 namespace SpellforceGameDataEditor2k16
 {
@@ -71,8 +70,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.SpellList.Add(new Spell(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Spell>)Vars.ListDict["Spell"]).Add(new Spell(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)                
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Spell>)Vars.ListDict["Spell"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -82,7 +101,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] TypeID = new byte[2];
         public byte[] NameID = new byte[2];
         public byte[] Spellline = new byte[2];
@@ -106,8 +124,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.SpellUIList.Add(new SpellUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<SpellUI>)Vars.ListDict["SpellUI"]).Add(new SpellUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<SpellUI>)Vars.ListDict["SpellUI"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -117,7 +155,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] Unknown = new byte[12];
 
         public Unknown1(byte[] data) : base(data) { }
@@ -136,8 +173,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.Unknown1List.Add(new Unknown1(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Unknown1>)Vars.ListDict["Unknown1"]).Add(new Unknown1(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Unknown1>)Vars.ListDict["Unknown1"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -147,7 +204,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] StatsID = new byte[2];
         public byte[] Level = new byte[2];
         public byte[] RaceID = new byte[1];
@@ -178,8 +234,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.UnitStatsList.Add(new UnitStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitStats>)Vars.ListDict["UnitStats"]).Add(new UnitStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UnitStats>)Vars.ListDict["UnitStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -189,7 +265,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] StatsID = new byte[2];
         public byte[] UnitAbilities = new byte[3];
 
@@ -209,8 +284,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.HeroWorkerAbilitiesList.Add(new HeroWorkerAbilities(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<HeroWorkerAbilities>)Vars.ListDict["HeroWorkerAbilities"]).Add(new HeroWorkerAbilities(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<HeroWorkerAbilities>)Vars.ListDict["HeroWorkerAbilities"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -220,7 +315,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] StatsID = new byte[2];
         public byte[] SpellNumber = new byte[1];
         public byte[] SpellEffectID = new byte[2];
@@ -241,8 +335,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.HeroSkillsList.Add(new HeroSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<HeroSkills>)Vars.ListDict["HeroSkills"]).Add(new HeroSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<HeroSkills>)Vars.ListDict["HeroSkills"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -252,7 +366,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] Item_Type = new byte[2];
         public byte[] ItemNameID = new byte[2];
@@ -280,8 +393,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ItemTypeList.Add(new ItemType(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ItemType>)Vars.ListDict["ItemType"]).Add(new ItemType(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ItemType>)Vars.ListDict["ItemType"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
         
@@ -291,7 +424,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] Strength = new byte[2];
         public byte[] Stamina = new byte[2];
@@ -327,8 +459,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ArmorItemStatsList.Add(new ArmorItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ArmorItemStats>)Vars.ListDict["ArmorItemStats"]).Add(new ArmorItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ArmorItemStats>)Vars.ListDict["ArmorItemStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -338,7 +490,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] InventoryID = new byte[2];
         public byte[] AddedID = new byte[2];
 
@@ -358,8 +509,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ScrollRuneIDList.Add(new ScrollRuneID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ScrollRuneID>)Vars.ListDict["ScrollRuneID"]).Add(new ScrollRuneID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ScrollRuneID>)Vars.ListDict["ScrollRuneID"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -369,7 +540,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] MinDamage = new byte[2];
         public byte[] MaxDamage = new byte[2];
@@ -395,8 +565,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.WeaponItemStatsList.Add(new WeaponItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<WeaponItemStats>)Vars.ListDict["WeaponItemStats"]).Add(new WeaponItemStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<WeaponItemStats>)Vars.ListDict["WeaponItemStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -406,7 +596,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] RequirementNumber = new byte[1];
         public byte[] CombatMagicSchool = new byte[1];
@@ -429,8 +618,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ItemRequirementsList.Add(new ItemRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ItemRequirements>)Vars.ListDict["ItemRequirements"]).Add(new ItemRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ItemRequirements>)Vars.ListDict["ItemRequirements"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -440,7 +649,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] ItemEffectNumber = new byte[1];
         public byte[] SpellEffectID = new byte[2];
@@ -461,8 +669,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ItemSpellEffectsList.Add(new ItemSpellEffects(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ItemSpellEffects>)Vars.ListDict["ItemSpellEffects"]).Add(new ItemSpellEffects(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ItemSpellEffects>)Vars.ListDict["ItemSpellEffects"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -472,7 +700,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] UINumber = new byte[1];
         public byte[] UIName = new byte[64];
@@ -494,8 +721,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ItemUIList.Add(new ItemUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ItemUI>)Vars.ListDict["ItemUI"]).Add(new ItemUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ItemUI>)Vars.ListDict["ItemUI"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -505,7 +752,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] ItemID = new byte[2];
         public byte[] SpellEffectID = new byte[2];
 
@@ -525,8 +771,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.SpellItemIDList.Add(new SpellItemID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<SpellItemID>)Vars.ListDict["SpellItemID"]).Add(new SpellItemID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<SpellItemID>)Vars.ListDict["SpellItemID"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -536,7 +802,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] TextID = new byte[2];
         public byte[] LanguageID = new byte[1]; 
         public byte[] DialogueNumber = new byte[1];
@@ -559,8 +824,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.TextsList.Add(new Texts(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Texts>)Vars.ListDict["Texts"]).Add(new Texts(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Texts>)Vars.ListDict["Texts"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -570,7 +855,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] RaceID = new byte[1];
         public byte[] Unknown1 = new byte[6];
         public byte[] RaceNameID = new byte[2];
@@ -594,8 +878,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.RaceStatsList.Add(new RaceStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<RaceStats>)Vars.ListDict["RaceStats"]).Add(new RaceStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<RaceStats>)Vars.ListDict["RaceStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -605,7 +909,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] HeadID1 = new byte[1];
         public byte[] HeadID2 = new byte[1];
         public byte[] Unknown = new byte[1];
@@ -626,8 +929,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.HeadStatsList.Add(new HeadStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<HeadStats>)Vars.ListDict["HeadStats"]).Add(new HeadStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<HeadStats>)Vars.ListDict["HeadStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -637,7 +960,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] UnitID = new byte[2];
         public byte[] NameID = new byte[2];
         public byte[] UnitStatsID = new byte[2];
@@ -665,8 +987,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.UnitNamesList.Add(new UnitNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitNames>)Vars.ListDict["UnitNames"]).Add(new UnitNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UnitNames>)Vars.ListDict["UnitNames"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -676,7 +1018,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] UnitID  = new byte[2];
         public byte[] SlotID = new byte[1]; 
         public byte[] ItemID = new byte[2];
@@ -697,8 +1038,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.UnitEquipmentList.Add(new UnitEquipment(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitEquipment>)Vars.ListDict["UnitEquipment"]).Add(new UnitEquipment(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UnitEquipment>)Vars.ListDict["UnitEquipment"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -708,7 +1069,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] UnitID = new byte[2];
         public byte[] SpellSkillNumber = new byte[1];
         public byte[] SpellEffectID = new byte[2];
@@ -729,8 +1089,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.UnitSpellsSkillsList.Add(new UnitSpellsSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitSpellsSkills>)Vars.ListDict["UnitSpellsSkills"]).Add(new UnitSpellsSkills(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UnitSpellsSkills>)Vars.ListDict["UnitSpellsSkills"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -740,7 +1120,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] UnitID = new byte[2];
         public byte[] ResourceID = new byte[1]; 
         public byte[] Amount = new byte[1];
@@ -761,8 +1140,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ArmyRequirementsList.Add(new ArmyRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ArmyRequirements>)Vars.ListDict["ArmyRequirements"]).Add(new ArmyRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ArmyRequirements>)Vars.ListDict["ArmyRequirements"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -772,7 +1171,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] UnitID = new byte[2];
         public byte[] SlotNumber = new byte[1];
         public byte[] Item1ID = new byte[2];
@@ -797,8 +1195,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.UnitLootList.Add(new UnitLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UnitLoot>)Vars.ListDict["UnitLoot"]).Add(new UnitLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UnitLoot>)Vars.ListDict["UnitLoot"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -808,7 +1226,6 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
-
         public byte[] UnitID = new byte[2];
         public byte[] RequirementNumber = new byte[1];
         public byte[] BuildingID = new byte[2];
@@ -829,8 +1246,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.BuildingRequirementsList.Add(new BuildingRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<BuildingRequirements>)Vars.ListDict["BuildingRequirements"]).Add(new BuildingRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<BuildingRequirements>)Vars.ListDict["BuildingRequirements"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }    
 
@@ -840,6 +1277,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public MagicIDNameID(byte[] data) : base(data) { }
 
@@ -857,8 +1296,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.MagicIDNameIDList.Add(new MagicIDNameID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<MagicIDNameID>)Vars.ListDict["MagicIDNameID"]).Add(new MagicIDNameID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<MagicIDNameID>)Vars.ListDict["MagicIDNameID"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -868,6 +1327,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public SkillRequirements(byte[] data) : base(data) { }
 
@@ -884,8 +1345,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.SkillRequirementsList.Add(new SkillRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<SkillRequirements>)Vars.ListDict["SkillRequirements"]).Add(new SkillRequirements(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<SkillRequirements>)Vars.ListDict["SkillRequirements"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -895,6 +1376,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public MerchantIDUnitID(byte[] data) : base(data) { }
 
@@ -912,8 +1395,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.MerchantIDUnitIDList.Add(new MerchantIDUnitID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<MerchantIDUnitID>)Vars.ListDict["MerchantIDUnitID"]).Add(new MerchantIDUnitID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<MerchantIDUnitID>)Vars.ListDict["MerchantIDUnitID"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -923,6 +1426,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public MerchantInventory(byte[] data) : base(data) { }
 
@@ -940,8 +1445,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.MerchantInventoryList.Add(new MerchantInventory(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<MerchantInventory>)Vars.ListDict["MerchantInventory"]).Add(new MerchantInventory(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<MerchantInventory>)Vars.ListDict["MerchantInventory"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
     public class MerchantRates : Segment
@@ -950,6 +1475,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public MerchantRates(byte[] data) : base(data) { }
 
@@ -967,8 +1494,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.MerchantRatesList.Add(new MerchantRates(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<MerchantRates>)Vars.ListDict["MerchantRates"]).Add(new MerchantRates(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<MerchantRates>)Vars.ListDict["MerchantRates"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -978,6 +1525,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public sql_goodNames(byte[] data) : base(data) { }
 
@@ -995,8 +1544,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.sql_goodNamesList.Add(new sql_goodNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<sql_goodNames>)Vars.ListDict["sql_goodNames"]).Add(new sql_goodNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<sql_goodNames>)Vars.ListDict["sql_goodNames"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1006,6 +1575,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public PlayerLevelStats(byte[] data) : base(data) { }
 
@@ -1023,8 +1594,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.PlayerLevelStatsList.Add(new PlayerLevelStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<PlayerLevelStats>)Vars.ListDict["PlayerLevelStats"]).Add(new PlayerLevelStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<PlayerLevelStats>)Vars.ListDict["PlayerLevelStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1034,6 +1625,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public ObjectStatsNames(byte[] data) : base(data) { }
 
@@ -1051,8 +1644,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ObjectStatsNamesList.Add(new ObjectStatsNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ObjectStatsNames>)Vars.ListDict["ObjectStatsNames"]).Add(new ObjectStatsNames(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ObjectStatsNames>)Vars.ListDict["ObjectStatsNames"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1062,6 +1675,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public MonumentInteractiveObjectStats(byte[] data) : base(data) { }
 
@@ -1079,8 +1694,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.MonumentInteractiveObjectStatsList.Add(new MonumentInteractiveObjectStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<MonumentInteractiveObjectStats>)Vars.ListDict["MonumentInteractiveObjectStats"]).Add(new MonumentInteractiveObjectStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<MonumentInteractiveObjectStats>)Vars.ListDict["MonumentInteractiveObjectStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1090,6 +1725,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public ChestLoot(byte[] data) : base(data) { }
 
@@ -1107,8 +1744,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ChestLootList.Add(new ChestLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ChestLoot>)Vars.ListDict["ChestLoot"]).Add(new ChestLoot(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ChestLoot>)Vars.ListDict["ChestLoot"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1118,6 +1775,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public Unknown2(byte[] data) : base(data) { }
 
@@ -1135,8 +1794,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.Unknown2List.Add(new Unknown2(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Unknown2>)Vars.ListDict["Unknown2"]).Add(new Unknown2(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Unknown2>)Vars.ListDict["Unknown2"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1146,6 +1825,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public QuestMaps(byte[] data) : base(data) { }
 
@@ -1163,8 +1844,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.QuestMapsList.Add(new QuestMaps(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<QuestMaps>)Vars.ListDict["QuestMaps"]).Add(new QuestMaps(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<QuestMaps>)Vars.ListDict["QuestMaps"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1174,6 +1875,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public Portals(byte[] data) : base(data) { }
 
@@ -1191,8 +1894,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.PortalsList.Add(new Portals(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Portals>)Vars.ListDict["Portals"]).Add(new Portals(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Portals>)Vars.ListDict["Portals"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1202,6 +1925,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public Unknown3(byte[] data) : base(data) { }
 
@@ -1219,8 +1944,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.Unknown3List.Add(new Unknown3(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Unknown3>)Vars.ListDict["Unknown3"]).Add(new Unknown3(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Unknown3>)Vars.ListDict["Unknown3"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
     
@@ -1230,6 +1975,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public QuestGameMenu(byte[] data) : base(data) { }
 
@@ -1247,8 +1994,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.QuestGameMenuList.Add(new QuestGameMenu(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<QuestGameMenu>)Vars.ListDict["QuestGameMenu"]).Add(new QuestGameMenu(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<QuestGameMenu>)Vars.ListDict["QuestGameMenu"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1258,6 +2025,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public ButtonDescription(byte[] data) : base(data) { }
 
@@ -1275,8 +2044,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ButtonDescriptionList.Add(new ButtonDescription(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ButtonDescription>)Vars.ListDict["ButtonDescription"]).Add(new ButtonDescription(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ButtonDescription>)Vars.ListDict["ButtonDescription"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1286,6 +2075,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public QuestID(byte[] data) : base(data) { }
 
@@ -1303,8 +2094,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.QuestIDList.Add(new QuestID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<QuestID>)Vars.ListDict["QuestID"]).Add(new QuestID(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<QuestID>)Vars.ListDict["QuestID"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1314,6 +2125,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public WeaponTypeStats(byte[] data) : base(data) { }
 
@@ -1331,8 +2144,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.WeaponTypeStatsList.Add(new WeaponTypeStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<WeaponTypeStats>)Vars.ListDict["WeaponTypeStats"]).Add(new WeaponTypeStats(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<WeaponTypeStats>)Vars.ListDict["WeaponTypeStats"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1342,6 +2175,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public WeaponMaterial(byte[] data) : base(data) { }
 
@@ -1359,8 +2194,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.WeaponMaterialList.Add(new WeaponMaterial(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<WeaponMaterial>)Vars.ListDict["WeaponMaterial"]).Add(new WeaponMaterial(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<WeaponMaterial>)Vars.ListDict["WeaponMaterial"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1370,6 +2225,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public Unknown4(byte[] data) : base(data) { }
 
@@ -1387,8 +2244,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.Unknown4List.Add(new Unknown4(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Unknown4>)Vars.ListDict["Unknown4"]).Add(new Unknown4(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Unknown4>)Vars.ListDict["Unknown4"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1398,6 +2275,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public Heads(byte[] data) : base(data) { }
 
@@ -1415,8 +2294,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.HeadsList.Add(new Heads(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<Heads>)Vars.ListDict["Heads"]).Add(new Heads(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<Heads>)Vars.ListDict["Heads"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1426,6 +2325,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public UpgradeStatsUI(byte[] data) : base(data) { }
 
@@ -1443,8 +2344,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.UpgradeStatsUIList.Add(new UpgradeStatsUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<UpgradeStatsUI>)Vars.ListDict["UpgradeStatsUI"]).Add(new UpgradeStatsUI(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
+        }
+
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<UpgradeStatsUI>)Vars.ListDict["UpgradeStatsUI"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
         }
     }
 
@@ -1454,6 +2375,8 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] PreCount;
         public static int Count;
         public static byte[] PostCount;
+
+        //TODO
 
         public ItemSets(byte[] data) : base(data) { }
 
@@ -1471,9 +2394,28 @@ namespace SpellforceGameDataEditor2k16
         {
             GetCount();
             for (int i = 0; i < Count; i++)
-                Vars.ItemSetsList.Add(new ItemSets(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
+                ((List<ItemSets>)Vars.ListDict["ItemSets"]).Add(new ItemSets(Vars.GameDataFile.SubArray(Vars.CurrentOffset + i * Length, Length)));
             Vars.CurrentOffset += Length * Count;
         }
-    }
 
+        public static void Write(FileStream stream)
+        {
+            int offset = 0;
+            using (stream)
+            {
+                stream.Write(PreCount, offset, PreCount.Length);
+                offset += PreCount.Length;
+                stream.Write(Utils.IntToLittleEndian(Count), offset, 4);
+                offset += 4;
+                stream.Write(PostCount, offset, PostCount.Length);
+                offset += PostCount.Length;
+
+                for (int i = 0; i < Count; i++)
+                {
+                    stream.Write(((List<ItemSets>)Vars.ListDict["ItemSets"])[i].Serialize(), offset, Length);
+                    offset += Length;
+                }
+            }
+        }
+    }
 }
