@@ -205,6 +205,7 @@ namespace SpellforceGameDataEditor2k16
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+            //test
         }
     }
 }
