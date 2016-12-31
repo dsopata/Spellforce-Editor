@@ -11,6 +11,7 @@ namespace SpellforceGameDataEditor2k16
         public MainForm()
         {
             InitializeComponent();
+            //HAPPY 2017!!!
         }             
 
         public void GameDataPathButton_Click(object sender, EventArgs e)
