@@ -34,12 +34,16 @@ namespace SpellforceGameDataEditor2k16
 
         public static void ReadAll()
         {
-            throw new NotImplementedException();
+            Vars.Header = Vars.GameDataFile.SubArray(Vars.CurrentOffset, 20);
+            Vars.CurrentOffset += 20;
+
+            Segment Spell = new Segment("Spell", new string[] {"EffectID", "TypeID", "Reqs", "Mana", "CastingTime", "RecastTime", "MinRange", "MaxRange", "CastingType", "Stats"}, new int[]{2, 2, 12, 2, 4, 4, 2, 2, 2, 44});
+
         }
 
         public static void WriteAll()
         {
-            throw new NotImplementedException();
+            
         }
 
     }
