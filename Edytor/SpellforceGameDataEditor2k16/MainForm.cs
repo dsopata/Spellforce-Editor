@@ -11,7 +11,6 @@ namespace SpellforceGameDataEditor2k16
         public MainForm()
         {
             InitializeComponent();
-            //HAPPY 2017!!!
         }             
 
         public void GameDataPathButton_Click(object sender, EventArgs e)
@@ -38,7 +37,6 @@ namespace SpellforceGameDataEditor2k16
             //trzeba całkowicie przepisać wczytywanie
             Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
 
-            Utils.InitializeListDict();
             Utils.ReadAll();
             
             Vars.GameDataFile = null;
@@ -59,11 +57,6 @@ namespace SpellforceGameDataEditor2k16
                 Environment.Exit(-1);
             }
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            
-        }
     }
 
     public static partial class Vars
@@ -72,6 +65,7 @@ namespace SpellforceGameDataEditor2k16
         public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
         public static int CurrentOffset;
         public static byte[] Header = new byte[20];
-        public static Dictionary<string, object> ListDict = new Dictionary<string, object>();        
+        public static List<Segment> Segments;
+       
     }
 }

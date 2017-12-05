@@ -163,7 +163,6 @@
             this.MinimumSize = new System.Drawing.Size(340, 300);
             this.Name = "MainForm";
             this.Text = "Spellforce GameData Editor";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
