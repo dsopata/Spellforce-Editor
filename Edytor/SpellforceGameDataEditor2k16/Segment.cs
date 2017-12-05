@@ -50,12 +50,13 @@ namespace SpellforceGameDataEditor2k16
 
     public class Entry
     {
-        public SortedDictionary<string, byte[]> EntryData;
+        public Dictionary<string, byte[]> EntryData;
 
         public Entry(List<string> FieldNames, List<int> FieldSizes)
         {
+            EntryData = new Dictionary<string, byte[]>();
             for (int field = 0; field < FieldNames.Count; field++)
-            {
+            {                
                 EntryData.Add(FieldNames[field], Vars.GameDataFile.SubArray(Vars.CurrentOffset, FieldSizes[field]));
                 Vars.CurrentOffset += FieldSizes[field];
             }            

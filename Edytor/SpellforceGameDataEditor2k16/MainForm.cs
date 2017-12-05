@@ -36,7 +36,7 @@ namespace SpellforceGameDataEditor2k16
         {
             //trzeba całkowicie przepisać wczytywanie
             Vars.GameDataFile = File.ReadAllBytes(Vars.GameDataPath);
-
+            
             Utils.ReadAll();
             
             Vars.GameDataFile = null;
@@ -57,15 +57,5 @@ namespace SpellforceGameDataEditor2k16
                 Environment.Exit(-1);
             }
         }
-    }
-
-    public static partial class Vars
-    {
-        public static string GameDataPath;
-        public static byte[] GameDataFile; //docelowo: public static List<byte> GameDataFile = new List<byte>();
-        public static int CurrentOffset;
-        public static byte[] Header = new byte[20];
-        public static Dictionary<string, Segment> Segments;
-       
-    }
+    }    
 }
